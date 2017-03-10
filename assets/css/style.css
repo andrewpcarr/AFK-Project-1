@@ -1,19 +1,18 @@
 body {
-	background: url('../images/background1.jpg') repeat #ffffff;
+	background: url('../images/background2.jpg') repeat #ffffff;
 	height: 100%;
 	font-family: 'Playfair Display', serif;
-	filter: blur(5px);
 	z-index: 1;
 	background-size: cover;
 }
 
 .choiceHolder {
-	background: rgba(255, 255, 255, 0.35);
+	background: rgba(77, 77, 77, 0.8);
 	display: block;
 	height: 100%;
-	margin: 100px;
+	margin: 150px;
 	border: 2px white double;
-	padding: 20px;
+	padding: 30px;
 	border-radius: 25px;
 	z-index: 2;
 }
@@ -31,8 +30,8 @@ body {
 }
 
 .choosePath:hover  {
-     color:  #fff;
-     background:  rgba(255, 255, 255, 0.2);
+    color:  #fff;
+    background:  rgba(255, 255, 255, 0.2);
  }
 
 .makeChoiceHead {
