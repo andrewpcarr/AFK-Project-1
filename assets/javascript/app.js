@@ -1,5 +1,15 @@
-$('.choose-list').on('click', function() {
+// Click event to bring up pre-made list
+$('.choose-list1').on('click', function() {
+	$('.load-screen').fadeOut(1000, function() {
+		$('.premade').fadeIn(1000);
+	});
+	//$('.premade').fadeIn(2000);
+});	
+
+// Click event to bring up build-your-own list
+$('.choose-list2').on('click', function() {
 	$('.load-screen').fadeOut(1000);
+	$('#set-list').fadeIn(2000);
 });
 
 $(function () {
