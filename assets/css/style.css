@@ -3,7 +3,6 @@ body {
 	height: 100%;
 	font-family: 'Playfair Display', serif;
 	z-index: 1;
-	background-size: cover;
 }
 
 .load-screen {
@@ -14,7 +13,7 @@ body {
 	padding: 30px;
 	border-radius: 75px;
 	z-index: 2;
-	margin-top: 150px;
+	margin-top: 100px;
 }
 
 .choose-list {
@@ -64,8 +63,10 @@ body {
 
 .premade {
 	display: none;
-	margin-top: 150px;
-	margin-bottom: 150px;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	height: 100%;
+    overflow: hidden;
 }
 
 .premade-list, .premade-map {
@@ -82,7 +83,7 @@ body {
 	border-bottom: 1px white solid;
 	padding-bottom: 20px;
 	margin-right: 50px;
-	margin-left: 50px;	
+	margin-left: 50px;
 }
 
 .returned-list {
@@ -92,6 +93,7 @@ body {
 	background: rgba(100, 100, 100, 1);
 	margin-top: 10px;
 	padding: 10px;
+	word-wrap: break-word;
 }
 
 .label {
@@ -100,6 +102,21 @@ body {
 	background: rgba(66, 66, 66, 1);
 }
 
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+
+
 a {
 	color: white;
+}
+
+.col-md-4 {
+  height: 600px; 
+  overflow-y: scroll;
+}
+
+.col-md-8 {
+	height: 600px;
 }
