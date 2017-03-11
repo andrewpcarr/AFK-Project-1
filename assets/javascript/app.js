@@ -1,5 +1,15 @@
-$('.choose-list').on('click', function() {
+// Click event to bring up pre-made list
+$('.choose-list1').on('click', function() {
+	$('.load-screen').fadeOut(1000, function() {
+		$('.premade').fadeIn(1000);
+	});
+	//$('.premade').fadeIn(2000);
+});	
+
+// Click event to bring up build-your-own list
+$('.choose-list2').on('click', function() {
 	$('.load-screen').fadeOut(1000);
+	$('#set-list').fadeIn(2000);
 });
 
 $(function () {
@@ -124,15 +134,17 @@ var term = "amber"
 var combinedURL = queryURL + apiKey + name + term;
 console.log(combinedURL);
 
-function makeBreweryList(brewery, id); {
 
+//compiles a list of breweries based on the url
+function makeBreweryList() {	
+	var breweryObject = $("<div></div>").attr("class", "returned-list");
+	var name = response.data[1].brewery.name;
+	breweryObject.html(name);
+	console.log(name);
+	$(".list-items").append(breweryObject);
+};
 
-
-
-
-}
-
-function displyerBreweries(); 
+//function displayBreweries(); 
 
 $("#getPremadeBreweries").on("click", function(e) {
 	e.preventDefault(); 
@@ -141,15 +153,21 @@ $("#getPremadeBreweries").on("click", function(e) {
 		method: "GET"
 	}).done(function(response) {
 		console.log(response);
-		var array
-
+		
 		//object.style.category.name
 	});
 	$.ajax({
-		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=de",
+		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
 		method: "GET"
 	}).done(function(response) {
+	for (var i = 0; i < 20; i++) {
 		console.log(response); 
+		var breweryObject = $("<div></div>").attr("class", "returned-list");
+		var name = response.data[i].brewery.name;
+		breweryObject.html(name);
+		console.log(name);
+		$(".list-items").append(breweryObject);
+		}
 	}); 
 });
 
