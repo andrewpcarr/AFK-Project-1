@@ -125,3 +125,51 @@ function initMap(lat, lng, radius) {
         radius: parseFloat(radius)
     });
 }
+
+// Begining of the code for the Beer API
+var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
+var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
+var name = "&format=json&q="
+var term = "amber"
+var combinedURL = queryURL + apiKey + name + term;
+console.log(combinedURL);
+
+
+//compiles a list of breweries based on the url
+function makeBreweryList() {	
+	var breweryObject = $("<div></div>").attr("class", "returned-list");
+	var name = response.data[1].brewery.name;
+	breweryObject.html(name);
+	console.log(name);
+	$(".list-items").append(breweryObject);
+};
+
+//function displayBreweries(); 
+
+$("#getPremadeBreweries").on("click", function(e) {
+	e.preventDefault(); 
+	$.ajax({
+		url: combinedURL, 
+		method: "GET"
+	}).done(function(response) {
+		console.log(response);
+		
+		//object.style.category.name
+	});
+	$.ajax({
+		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
+		method: "GET"
+	}).done(function(response) {
+	for (var i = 0; i < 20; i++) {
+		console.log(response); 
+		var breweryObject = $("<div></div>").attr("class", "returned-list");
+		var name = response.data[i].brewery.name;
+		breweryObject.html(name);
+		console.log(name);
+		$(".list-items").append(breweryObject);
+		}
+	}); 
+});
+
+
+

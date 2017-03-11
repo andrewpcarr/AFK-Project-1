@@ -76,3 +76,11 @@ body {
 	border-radius: 75px;
 	z-index: 2;
 }
+
+#list-head {
+	color: white;
+	border-bottom: 1px white solid;
+	padding-bottom: 20px;
+	margin-right: 50px;
+	margin-left: 50px;	
+}

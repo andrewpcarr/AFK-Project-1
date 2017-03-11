@@ -25,7 +25,7 @@
 		<div class="row text-center">
 
 			<div class="col-md-6 options">
-				<button type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i>    Explore a pre-made beer list</button>
+				<button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i>  Explore a pre-made beer list</button>
 			</div>
 			<div class="col-md-6 options">
 				<button type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Build my own beer list</button>
@@ -34,14 +34,17 @@
 	</div>
 </div>
 
+
 <!-- Use a pre-made list -->
 <div class="container premade">
 	<div class="row text-center">
 		<div class="col-md-5 premade-list">
+			<h2 id="list-head">Brewery List</h2>
 			<!-- pred-made list returns to this div -->
 			<div class="list-items"></div>
 		</div>
 		<div class="col-md-7 premade-map">
+			<h2 id="list-head">Locate Your Brewery</h2>
 			<!-- map api displays here -->
 			<div class="map"></div>
 		</div>
@@ -49,6 +52,7 @@
 </div>
 
   <!-- build your own list -->
+
   <div class="container" id="set-list" >	
 	<div class="row">
 			<div id="map" class="col-md-7">
