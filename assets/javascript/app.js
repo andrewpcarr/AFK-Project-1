@@ -125,3 +125,43 @@ function initMap(lat, lng, radius) {
         radius: parseFloat(radius)
     });
 }
+
+// Begining of the code for the Beer API
+var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
+var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
+var name = "&format=json&q="
+var term = "amber"
+var combinedURL = queryURL + apiKey + name + term;
+console.log(combinedURL);
+
+function makeBreweryList(brewery, id); {
+
+
+
+
+
+};
+
+//function displayBreweries(); 
+
+$("#getPremadeBreweries").on("click", function(e) {
+	e.preventDefault(); 
+	$.ajax({
+		url: combinedURL, 
+		method: "GET"
+	}).done(function(response) {
+		console.log(response);
+		var array
+
+		//object.style.category.name
+	});
+	$.ajax({
+		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=de",
+		method: "GET"
+	}).done(function(response) {
+		console.log(response); 
+	}); 
+});
+
+
+
