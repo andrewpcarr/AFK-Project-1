@@ -91,22 +91,48 @@ body {
 	color: white;
 	font-size: 14px;
 	background: rgba(100, 100, 100, 1);
-	margin-top: 10px;
+	margin-top: 20px;
 	padding: 10px;
 	word-wrap: break-word;
+	border:2px black solid;
 }
 
 .label {
 	margin-right: 10px;
-	margin-bottom: 10px;
 	background: rgba(66, 66, 66, 1);
+}
+
+.headline {
+	color: #ffcd16;
 }
 
 ::-webkit-scrollbar { 
     display: none; 
 }
 
+label {
+	font-size: 16px;
+}
 
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:20px;
+    height:20px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+
+input[type='checkbox']:checked {
+    background: #91f337;
+}
+
+.img {
+	margin-right: 5px;
+	margin-bottom: 5px;
+	height: 30px;
+	width: 30px;
+}
 
 a {
 	color: white;
@@ -119,4 +145,9 @@ a {
 
 .col-md-8 {
 	height: 600px;
+}
+
+.checkbox-inline {
+	font-style: italic;
+
 }
