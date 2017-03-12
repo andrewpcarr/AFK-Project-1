@@ -167,13 +167,20 @@ $("#getPremadeBreweries").on("click", function(e) {
 		
 		var marker = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
 		
-		var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(marker);	
+		var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
+
+		var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
+
+		var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);	
 
 		var website = $('<a></a>').attr('href', response.data[i].website).html(response.data[i].website);
 
+		var img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
+
 		var breweryObject = $("<div></div>").attr("class", "returned-list");
 
-		breweryObject.append(name, website);
+
+		breweryObject.append(input, label, name, website);
 		console.log(name);
 		$(".list-items").append(breweryObject);
 		}
