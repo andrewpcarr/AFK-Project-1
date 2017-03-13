@@ -46,7 +46,7 @@
 		<div class="col-md-8 premade-map" data-spy="affix" data-offset-top="150">
 			<h2 id="list-head"><i class="fa fa-beer" aria-hidden="true"></i> Brewery Map</h2>
 			<!-- map api displays here -->
-			<div class="map"></div>
+			<div id="map-canvas"></div>
 		</div>
 	</div>
 </div>
@@ -73,9 +73,10 @@
             </div>
             <pre id="display-json"></pre>
         </div>
-     </div>
-	<!-- Replace the value of the key parameter with your own API key. -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0ENUIDgPcvFHW_N5XyLrSw8MhTZlbLpU&libraries=visualization&callback=initMap" async defer></script>
+    </div>
+
+<!-- Script for the Google Maps API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>
 	
 <!-- Link to our JavaScript file -->
 <script type="text/javascript" src="assets/javascript/app.js"></script>

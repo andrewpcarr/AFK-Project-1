@@ -1,10 +1,37 @@
+// THIS CHUNK IS AN EXPERIMENT
+$(document).ready(function () { 
+  $('#map-canvas').on('shown', function () { 
+    google.maps.event.trigger(map, 'resize');  
+  });   
+}); 
+
+// This gets our basic map up and running on the premade list
+var uluru;
+var map;
+var marker;
+
+function initMap() {
+    var uluru = {lat: 39.7214236, lng: -104.9870303};
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+      zoom: 10,
+      center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+    // THIS PIECE IS AN EXPERIMENT
+    google.maps.event.trigger(map, "resize");
+
+}
+
 // Click event to bring up pre-made list
 $('.choose-list1').on('click', function() {
-	$('.load-screen').fadeOut(1000, function() {
-		$('.premade').fadeIn(1000);
-	});
-	//$('.premade').fadeIn(2000);
-});	
+    $('.load-screen').fadeOut(1000, function() {
+        $('.premade').fadeIn(1000);
+    });
+    //$('.premade').fadeIn(2000);
+});
 
 // Click event to bring up build-your-own list
 $('.choose-list2').on('click', function() {
@@ -13,7 +40,7 @@ $('.choose-list2').on('click', function() {
 });
 
 
-
+// ??
 $(function () {
     $('.list-group.checked-list-box .list-group-item').each(function () {
         
@@ -93,7 +120,7 @@ $(function () {
     });
 });
 
-
+// ??
 function retrieve() {
     var messagesRef = new Firebase("https://the-beer-search-1489024741674.firebaseio.com");
     messagesRef.once('child_added', function (snapshot) {
@@ -104,6 +131,8 @@ function retrieve() {
         initMap(lat, lng, rad);
     });
 }
+
+/* This map function was messing up the display; just commented it out for now
 
 function initMap(lat, lng, radius) {
     // Create the map.
@@ -128,6 +157,8 @@ function initMap(lat, lng, radius) {
     });
 }
 
+*/
+
 // Begining of the code for the Beer API
 var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
 var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
@@ -136,7 +167,7 @@ var term = "amber"
 var combinedURL = queryURL + apiKey + name + term;
 console.log(combinedURL);
 
-
+// Not sure if we need this code anymore
 //compiles a list of breweries based on the url
 function makeBreweryList() {	
 	var breweryObject = $("<div></div>").attr("class", "returned-list");
@@ -146,8 +177,9 @@ function makeBreweryList() {
 	$(".list-items").append(breweryObject);
 };
 
-//function displayBreweries(); 
 
+
+// This creates the premade list of breweries
 $("#getPremadeBreweries").on("click", function(e) {
 	e.preventDefault(); 
 	$.ajax({
@@ -156,7 +188,6 @@ $("#getPremadeBreweries").on("click", function(e) {
 	}).done(function(response) {
 		console.log(response);
 		
-		//object.style.category.name
 	});
 	$.ajax({
 		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
@@ -165,18 +196,13 @@ $("#getPremadeBreweries").on("click", function(e) {
 	for (var i = 0; i < 20; i++) {
 		console.log(response); 
 		
-		var marker = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
-		
+        // These put the API responses into the premade list
+		var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
 		var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
-
 		var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
-
 		var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);	
-
-		var website = $('<a></a>').attr('href', response.data[i].website).html(response.data[i].website);
-
+		var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
 		var img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
-
 		var breweryObject = $("<div></div>").attr("class", "returned-list");
 
 
@@ -185,7 +211,10 @@ $("#getPremadeBreweries").on("click", function(e) {
 		$(".list-items").append(breweryObject);
 		}
 	}); 
-});
 
+
+
+
+});
 
 
