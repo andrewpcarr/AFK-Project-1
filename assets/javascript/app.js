@@ -18,8 +18,11 @@ function initMap() {
     });
     var marker = new google.maps.Marker({
       position: uluru,
-      map: map
+      map: map,
+      icon: "bar.png"
     });
+
+
     // THIS PIECE IS AN EXPERIMENT
     google.maps.event.trigger(map, "resize");
 
