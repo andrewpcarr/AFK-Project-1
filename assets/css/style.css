@@ -152,3 +152,11 @@ a {
 	font-style: italic;
 
 }
+
+#map-canvas {
+    height:430px;
+    margin:0;
+    padding:0;
+    width:720px;
+    border: 2px black solid;
+}
