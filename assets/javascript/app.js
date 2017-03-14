@@ -107,18 +107,26 @@ $("#getPremadeBreweries").on("click", function(e) {
         method: "GET"
     }).done(function(response) {
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 20; i++) {
         console.log(response); 
         
         // These put the API responses into the premade list
+        if (typeof response.data[i].brewery.images != "undefined") {
+            img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
+        } else {
+            img = $('<img>').attr('src', 'default.png').attr('class', 'img');
+        }
+
         var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
         var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
-        var img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
         var breweryObject = $("<div></div>").attr("class", "returned-list");
         var latLong = [response.data[i].latitude, response.data[i].longitude]
+        var img;
+
+      //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
 
         addPin.push(latLong);
         breweryObject.append(input, label, name, website);
