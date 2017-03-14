@@ -10,6 +10,7 @@ var uluru;
 var map;
 var marker;
 var addPin = [];
+var newArray = [];
 var location;
 
 function initMap() {
@@ -99,7 +100,7 @@ function makeBreweryList() {
     $(".list-items").append(breweryObject);
 };
 
-// This creates the premade list of breweries
+// THIS IS FOR THE PREMADE LIST
 $("#getPremadeBreweries").on("click", function(e) {
     e.preventDefault(); 
 
@@ -157,6 +158,9 @@ function addMap() {
 // $('.choose-list2').on('click', function() {
 //     $('.loadscreen').fadeOut(500, function)
 // });
+
+
+// THIS IS FOR THE USER BUILT LIST
 $("#getBrewList").on("click", function(e) {
     e.preventDefault(); 
 
@@ -165,7 +169,7 @@ $("#getBrewList").on("click", function(e) {
         method: "GET"
     }).done(function(response) {
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < response.data.length; i++) {
         console.log(response); 
         
         // These put the API responses into the premade list
@@ -189,15 +193,28 @@ $("#getBrewList").on("click", function(e) {
         addPin.push(latLong);
         breweryObject.append(input, label, name, website);
         console.log(name);
-        $(".list-items").append(breweryObject);
+        $(".listItems").append(breweryObject);
         }
 
         
     }); 
 });
-$('.list-items').on('click', '#brewChoice', function() {
-//id = $('div').last().parent().prop('id');
+
+// This click function adds the user choices onto their list
+$('.listItems').on('click', '#brewChoice', function() {
     $(this).parent().appendTo('.userList');
-// var test = $(this).parent();
-//     console.log(test);
 })
+
+// This click goes to the user-made list
+$('#createList').on('click', function() {
+    showList();
+});
+
+// This function transitions to the user's list
+function showList() {
+    $('.selectBrew').fadeOut(500, function() {
+    $('.premade').fadeIn(500);
+    setTimeout(addMap, 500);
+});
+    
+}
