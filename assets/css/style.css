@@ -160,3 +160,20 @@ a {
     width:720px;
     border: 2px black solid;
 }
+
+.selectBrew {
+	display: none;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	height: 100%;
+    overflow: hidden;
+}
+
+.chooseBrew, .premade-map {
+	background: rgba(77, 77, 77, 0.8);
+	height: 100%;
+	border: 2px white double;
+	padding: 30px;
+	border-radius: 75px;
+	z-index: 2;
+}

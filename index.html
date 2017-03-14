@@ -30,7 +30,7 @@
 				<button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i>  Explore a pre-made beer list</button>
 			</div>
 			<div class="col-md-6 options">
-				<button type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Build your own beer list</button>
+				<button id='getBrewList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Build your own beer list</button>
 			</div>
 		</div>
 	</div>
@@ -54,8 +54,30 @@
 </div>
 
   <!-- build your own list -->
+<div class="container selectBrew">
+	<div class="row text-center">
+		<div class="col-md-12 chooseBrew">
+			<h2 id="list-head"><i class="fa fa-beer" aria-hidden="true"></i> Choose your breweries!</h2>
+			<!-- pred-made list returns to this div -->
+			<div class="list-items"></div>
+		</div>
+	<div class="row text-center">
+		<div class="col-md-12">
+			<div class="userList"></div>
+		</div>
+	</div>
+		<!-- <div class="col-md-8 premade-map" data-spy="affix" data-offset-top="150">
+			<h2 id="list-head"><i class="fa fa-beer" aria-hidden="true"></i> Brewery Map</h2>
+			// map api displays here
+			<div id="map-canvas"></div>
+		</div> -->
+	</div>
+</div>
 
-  <div class="container" id="set-list" >	
+
+
+
+<!--  <div class="container" id="set-list" >	
 	<div class="row">
 			<div id="map" class="col-md-7">
 			</div>
@@ -75,7 +97,7 @@
             </div>
             <pre id="display-json"></pre>
         </div>
-    </div>
+    </div> -->
 
 <!-- Script for the Google Maps API -->
 
