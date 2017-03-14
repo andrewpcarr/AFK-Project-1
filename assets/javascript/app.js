@@ -136,13 +136,13 @@ console.log(combinedURL);
 
 
 //compiles a list of breweries based on the url
-function makeBreweryList() {	
+/* function makeBreweryList() {	
 	var breweryObject = $("<div></div>").attr("class", "returned-list");
 	var name = response.data[1].brewery.name;
 	breweryObject.html(name);
 	console.log(name);
 	$(".list-items").append(breweryObject);
-};
+}; */
 
 //function displayBreweries(); 
 
@@ -164,6 +164,7 @@ $("#getPremadeBreweries").on("click", function(e) {
 		console.log(response); 
 		var breweryObject = $("<div></div>").attr("class", "returned-list");
 		var name = response.data[i].brewery.name;
+		var 
 		breweryObject.html(name);
 		console.log(name);
 		$(".list-items").append(breweryObject);
