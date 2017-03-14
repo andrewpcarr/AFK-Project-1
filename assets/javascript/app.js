@@ -10,6 +10,7 @@ var uluru;
 var map;
 var marker;
 var addPin = [];
+var newArray = [];
 var location;
 
 function initMap() {
@@ -40,8 +41,9 @@ function initMap() {
 
 // Click event to bring up build-your-own list
 $('.choose-list2').on('click', function() {
-    $('.load-screen').fadeOut(1000);
-    $('#set-list').fadeIn(2000);
+    $('.load-screen').fadeOut(500, function() {
+    $('.selectBrew').fadeIn(500);
+    })
 });
 
 // ??
@@ -98,7 +100,7 @@ function makeBreweryList() {
     $(".list-items").append(breweryObject);
 };
 
-// This creates the premade list of breweries
+// THIS IS FOR THE PREMADE LIST
 $("#getPremadeBreweries").on("click", function(e) {
     e.preventDefault(); 
 
@@ -150,4 +152,69 @@ function displayMap() {
 
 function addMap() {
     $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>')
+}
+
+// Code for create-your-own list
+// $('.choose-list2').on('click', function() {
+//     $('.loadscreen').fadeOut(500, function)
+// });
+
+
+// THIS IS FOR THE USER BUILT LIST
+$("#getBrewList").on("click", function(e) {
+    e.preventDefault(); 
+
+    $.ajax({
+        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
+        method: "GET"
+    }).done(function(response) {
+
+    for (var i = 0; i < response.data.length; i++) {
+        console.log(response); 
+        
+        // These put the API responses into the premade list
+        if (typeof response.data[i].brewery.images != "undefined") {
+            img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
+        } else {
+            img = $('<img>').attr('src', 'default.png').attr('class', 'img');
+        }
+
+        var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
+        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice');
+        var label = $('<label></label>').attr('class', 'checkbox-inline').html('Add to list');
+        var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
+        var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
+        var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
+        var latLong = [response.data[i].latitude, response.data[i].longitude]
+        var img;
+
+      //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
+
+        addPin.push(latLong);
+        breweryObject.append(input, label, name, website);
+        console.log(name);
+        $(".listItems").append(breweryObject);
+        }
+
+        
+    }); 
+});
+
+// This click function adds the user choices onto their list
+$('.listItems').on('click', '#brewChoice', function() {
+    $(this).parent().appendTo('.userList');
+})
+
+// This click goes to the user-made list
+$('#createList').on('click', function() {
+    showList();
+});
+
+// This function transitions to the user's list
+function showList() {
+    $('.selectBrew').fadeOut(500, function() {
+    $('.premade').fadeIn(500);
+    setTimeout(addMap, 500);
+});
+    
 }
