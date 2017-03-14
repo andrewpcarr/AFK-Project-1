@@ -1,3 +1,4 @@
+
 // Click event to bring up pre-made list
 $('.choose-list1').on('click', function() {
 	$('.load-screen').fadeOut(1000, function() {
@@ -6,12 +7,53 @@ $('.choose-list1').on('click', function() {
 	//$('.premade').fadeIn(2000);
 });	
 
+// THIS CHUNK IS AN EXPERIMENT
+$(document).ready(function () { 
+  $('#map-canvas').on('shown', function () { 
+    google.maps.event.trigger(map, 'resize');  
+  });   
+}); 
+
+// This gets our basic map up and running on the premade list
+var uluru;
+var map;
+var marker;
+
+function initMap() {
+    var uluru = {lat: 39.7214236, lng: -104.9870303};
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+      zoom: 10,
+      center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map,
+      icon: "bar.png"
+    });
+
+
+    // THIS PIECE IS AN EXPERIMENT
+    google.maps.event.trigger(map, "resize");
+
+}
+
+// Click event to bring up pre-made list
+// $('.choose-list1').on('click', function() {
+//     $('.load-screen').fadeOut(1000, function() {
+//         $('.premade').fadeIn(1000);
+//     });
+//     //$('.premade').fadeIn(2000);
+// });
+
+
 // Click event to bring up build-your-own list
 $('.choose-list2').on('click', function() {
 	$('.load-screen').fadeOut(1000);
 	$('#set-list').fadeIn(2000);
 });
 
+
+// ??
 $(function () {
     $('.list-group.checked-list-box .list-group-item').each(function () {
         
@@ -91,7 +133,7 @@ $(function () {
     });
 });
 
-
+// ??
 function retrieve() {
     var messagesRef = new Firebase("https://the-beer-search-1489024741674.firebaseio.com");
     messagesRef.once('child_added', function (snapshot) {
@@ -102,6 +144,8 @@ function retrieve() {
         initMap(lat, lng, rad);
     });
 }
+
+/* This map function was messing up the display; just commented it out for now
 
 function initMap(lat, lng, radius) {
     // Create the map.
@@ -126,6 +170,8 @@ function initMap(lat, lng, radius) {
     });
 }
 
+*/
+
 // Begining of the code for the Beer API
 var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
 var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
@@ -146,6 +192,21 @@ console.log(combinedURL);
 
 //function displayBreweries(); 
 
+
+// Not sure if we need this code anymore
+//compiles a list of breweries based on the url
+function makeBreweryList() {	
+	var breweryObject = $("<div></div>").attr("class", "returned-list");
+	var name = response.data[1].brewery.name;
+	breweryObject.html(name);
+	console.log(name);
+	$(".list-items").append(breweryObject);
+};
+
+
+
+// This creates the premade list of breweries
+
 $("#getPremadeBreweries").on("click", function(e) {
 	e.preventDefault(); 
 	$.ajax({
@@ -155,11 +216,13 @@ $("#getPremadeBreweries").on("click", function(e) {
 		console.log(response);
 		
 		//object.style.category.name
+
 	});
 	$.ajax({
 		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
 		method: "GET"
 	}).done(function(response) {
+<<<<<<< HEAD
 	for (var i = 0; i < 20; i++) {
 		console.log(response); 
 		var breweryObject = $("<div></div>").attr("class", "returned-list");
@@ -169,8 +232,56 @@ $("#getPremadeBreweries").on("click", function(e) {
 		console.log(name);
 		$(".list-items").append(breweryObject);
 		}
+
+	for (var i = 0; i < 10; i++) {
+		console.log(response); 
+		
+        // These put the API responses into the premade list
+		var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
+		var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
+		var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
+		var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);	
+		var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
+		var img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
+		var breweryObject = $("<div></div>").attr("class", "returned-list");
+
+
+		breweryObject.append(input, label, name, website);
+		console.log(name);
+		$(".list-items").append(breweryObject);
+		}
+
+        displayMap();
+
 	}); 
+
+
+
+
 });
 
+   function displayMap() {
+                     // $('.premade').css('display', 'block');
+                    $('.load-screen').fadeOut(500, function() {
+                        $('.premade').fadeIn(500);
+                        setTimeout(addMap, 500);
+                    });
+    
+                   // initialize();
+               }
 
+    function addMap() {
+       $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>')
+    }
+    // function initialize() {
+    //              // create the map
 
+    //     var myOptions = {
+    //                zoom: 14,
+    //                center: new google.maps.LatLng(0.0, 0.0),
+    //                mapTypeId: google.maps.MapTypeId.ROADMAP
+    //              }
+    //                map = new google.maps.Map(document.getElementById("map_canvas"),
+    //                                            myOptions);
+
+    //             } 

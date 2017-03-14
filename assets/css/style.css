@@ -3,18 +3,17 @@ body {
 	height: 100%;
 	font-family: 'Playfair Display', serif;
 	z-index: 1;
-	background-size: cover;
 }
 
 .load-screen {
 	background: rgba(77, 77, 77, 0.8);
 	display: block;
 	height: 100%;
-	margin: 150px;
 	border: 2px white double;
 	padding: 30px;
 	border-radius: 75px;
 	z-index: 2;
+	margin-top: 100px;
 }
 
 .choose-list {
@@ -58,5 +57,106 @@ body {
 	margin-right: 20px;
 }
 
+#set-list {
+	display: none;
+}
 
+.premade {
+	display: none;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	height: 100%;
+    overflow: hidden;
+}
 
+.premade-list, .premade-map {
+	background: rgba(77, 77, 77, 0.8);
+	height: 100%;
+	border: 2px white double;
+	padding: 30px;
+	border-radius: 75px;
+	z-index: 2;
+}
+
+#list-head {
+	color: white;
+	border-bottom: 1px white solid;
+	padding-bottom: 20px;
+	margin-right: 50px;
+	margin-left: 50px;
+}
+
+.returned-list {
+	text-align: left;
+	color: white;
+	font-size: 14px;
+	background: rgba(100, 100, 100, 1);
+	margin-top: 20px;
+	padding: 10px;
+	word-wrap: break-word;
+	border:2px black solid;
+}
+
+.label {
+	margin-right: 10px;
+	background: rgba(66, 66, 66, 1);
+}
+
+.headline {
+	color: #ffcd16;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+label {
+	font-size: 16px;
+	margin-top: -13px;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:20px;
+    height:20px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+
+input[type='checkbox']:checked {
+    background: #91f337;
+}
+
+.img {
+	margin-right: 5px;
+	margin-bottom: 5px;
+	height: 30px;
+	width: 30px;
+}
+
+a {
+	color: white;
+}
+
+.col-md-4 {
+  height: 600px; 
+  overflow-y: scroll;
+}
+
+.col-md-8 {
+	height: 600px;
+}
+
+.checkbox-inline {
+	font-style: italic;
+
+}
+
+#map-canvas {
+    height:430px;
+    margin:0;
+    padding:0;
+    width:720px;
+    border: 2px black solid;
+}
