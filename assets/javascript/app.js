@@ -29,12 +29,12 @@ function initMap() {
 }
 
 // Click event to bring up pre-made list
-$('.choose-list1').on('click', function() {
-    $('.load-screen').fadeOut(1000, function() {
-        $('.premade').fadeIn(1000);
-    });
-    //$('.premade').fadeIn(2000);
-});
+// $('.choose-list1').on('click', function() {
+//     $('.load-screen').fadeOut(1000, function() {
+//         $('.premade').fadeIn(1000);
+//     });
+//     //$('.premade').fadeIn(2000);
+// });
 
 // Click event to bring up build-your-own list
 $('.choose-list2').on('click', function() {
@@ -196,7 +196,8 @@ $("#getPremadeBreweries").on("click", function(e) {
 		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
 		method: "GET"
 	}).done(function(response) {
-	for (var i = 0; i < 20; i++) {
+
+	for (var i = 0; i < 10; i++) {
 		console.log(response); 
 		
         // These put the API responses into the premade list
@@ -213,6 +214,8 @@ $("#getPremadeBreweries").on("click", function(e) {
 		console.log(name);
 		$(".list-items").append(breweryObject);
 		}
+
+        displayMap();
 	}); 
 
 
@@ -220,4 +223,28 @@ $("#getPremadeBreweries").on("click", function(e) {
 
 });
 
+   function displayMap() {
+                     // $('.premade').css('display', 'block');
+                    $('.load-screen').fadeOut(500, function() {
+                        $('.premade').fadeIn(500);
+                        setTimeout(addMap, 500);
+                    });
+    
+                   // initialize();
+               }
 
+    function addMap() {
+       $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>')
+    }
+    // function initialize() {
+    //              // create the map
+
+    //     var myOptions = {
+    //                zoom: 14,
+    //                center: new google.maps.LatLng(0.0, 0.0),
+    //                mapTypeId: google.maps.MapTypeId.ROADMAP
+    //              }
+    //                map = new google.maps.Map(document.getElementById("map_canvas"),
+    //                                            myOptions);
+
+    //             } 
