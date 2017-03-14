@@ -161,7 +161,7 @@ function initMap(lat, lng, radius) {
 }
 
 */
-
+poopfart
 // Begining of the code for the Beer API
 var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
 var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
