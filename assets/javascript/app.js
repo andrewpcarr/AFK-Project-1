@@ -9,23 +9,25 @@ $(document).ready(function () {
 var uluru;
 var map;
 var marker;
+var addPin = [];
+var location;
 
 function initMap() {
-    var uluru = {lat: 39.7214236, lng: -104.9870303};
+    var uluru = {lat: 30.2002471, lng: -97.7677763};
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 10,
       center: uluru
     });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map,
-      icon: "bar.png"
-    });
-
-
+        // This beautiful loop adds multiple markers to the map
+        for (i = 0; i < addPin.length; i++) {
+            var marker = new google.maps.Marker({
+            position: {lat: addPin[i][0], lng: addPin[i][1]},
+            map: map,
+            icon: "bar.png"
+        });
+    }
     // THIS PIECE IS AN EXPERIMENT
     google.maps.event.trigger(map, "resize");
-
 }
 
 // Click event to bring up pre-made list
@@ -38,89 +40,8 @@ function initMap() {
 
 // Click event to bring up build-your-own list
 $('.choose-list2').on('click', function() {
-	$('.load-screen').fadeOut(1000);
-	$('#set-list').fadeIn(2000);
-});
-
-
-// ??
-$(function () {
-    $('.list-group.checked-list-box .list-group-item').each(function () {
-        
-        // Settings
-        var $widget = $(this),
-            $checkbox = $('<input type="checkbox" class="hidden" />'),
-            color = ($widget.data('color') ? $widget.data('color') : "primary"),
-            style = ($widget.data('style') == "button" ? "btn-" : "list-group-item-"),
-            settings = {
-                on: {
-                    icon: 'glyphicon glyphicon-check'
-                },
-                off: {
-                    icon: 'glyphicon glyphicon-unchecked'
-                }
-            };
-            
-        $widget.css('cursor', 'pointer')
-        $widget.append($checkbox);
-
-        // Event Handlers
-        $widget.on('click', function () {
-            $checkbox.prop('checked', !$checkbox.is(':checked'));
-            $checkbox.triggerHandler('change');
-            updateDisplay();
-        });
-        $checkbox.on('change', function () {
-            updateDisplay();
-        });
-          
-
-        // Actions
-        function updateDisplay() {
-            var isChecked = $checkbox.is(':checked');
-
-            // Set the button's state
-            $widget.data('state', (isChecked) ? "on" : "off");
-
-            // Set the button's icon
-            $widget.find('.state-icon')
-                .removeClass()
-                .addClass('state-icon ' + settings[$widget.data('state')].icon);
-
-            // Update the button's color
-            if (isChecked) {
-                $widget.addClass(style + color + ' active');
-            } else {
-                $widget.removeClass(style + color + ' active');
-            }
-        }
-
-        // Initialization
-        function init() {
-            
-            if ($widget.data('checked') == true) {
-                $checkbox.prop('checked', !$checkbox.is(':checked'));
-            }
-            
-            updateDisplay();
-
-            // Inject the icon if applicable
-            if ($widget.find('.state-icon').length == 0) {
-                $widget.prepend('<span class="state-icon ' + settings[$widget.data('state')].icon + '"></span>');
-            }
-        }
-        init();
-    });
-    
-    $('#get-checked-data').on('click', function(event) {
-        event.preventDefault(); 
-        var checkedItems = {}, counter = 0;
-        $("#check-list-box li.active").each(function(idx, li) {
-            checkedItems[counter] = $(li).text();
-            counter++;
-        });
-        $('#display-json').html(JSON.stringify(checkedItems, null, '\t'));
-    });
+    $('.load-screen').fadeOut(1000);
+    $('#set-list').fadeIn(2000);
 });
 
 // ??
@@ -135,32 +56,29 @@ function retrieve() {
     });
 }
 
-/* This map function was messing up the display; just commented it out for now
-
-function initMap(lat, lng, radius) {
-    // Create the map.
-    var latLng = new google.maps.LatLng(lat, lng);
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
-        center: latLng
-    });
-    // create the circle
-    var circle = new google.maps.Circle({
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        map: map,
-        center: {
-            lat: lat,
-            lng: lng
-        },
-        radius: parseFloat(radius)
-    });
-}
-
-*/
+// This map function was messing up the display; just commented it out for now
+// function initMap(lat, lng, radius) {
+//     // Create the map.
+//     var latLng = new google.maps.LatLng(lat, lng);
+//     var map = new google.maps.Map(document.getElementById('map'), {
+//         zoom: 8,
+//         center: latLng
+//     });
+//     // create the circle
+//     var circle = new google.maps.Circle({
+//         strokeColor: '#FF0000',
+//         strokeOpacity: 0.8,
+//         strokeWeight: 2,
+//         fillColor: '#FF0000',
+//         fillOpacity: 0.35,
+//         map: map,
+//         center: {
+//             lat: lat,
+//             lng: lng
+//         },
+//         radius: parseFloat(radius)
+//     });
+// }
 
 // Begining of the code for the Beer API
 var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
@@ -172,79 +90,56 @@ console.log(combinedURL);
 
 // Not sure if we need this code anymore
 //compiles a list of breweries based on the url
-function makeBreweryList() {	
-	var breweryObject = $("<div></div>").attr("class", "returned-list");
-	var name = response.data[1].brewery.name;
-	breweryObject.html(name);
-	console.log(name);
-	$(".list-items").append(breweryObject);
+function makeBreweryList() {    
+    var breweryObject = $("<div></div>").attr("class", "returned-list");
+    var name = response.data[1].brewery.name;
+    breweryObject.html(name);
+    console.log(name);
+    $(".list-items").append(breweryObject);
 };
-
-
 
 // This creates the premade list of breweries
 $("#getPremadeBreweries").on("click", function(e) {
-	e.preventDefault(); 
-	$.ajax({
-		url: combinedURL, 
-		method: "GET"
-	}).done(function(response) {
-		console.log(response);
-		
-	});
-	$.ajax({
-		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
-		method: "GET"
-	}).done(function(response) {
+    e.preventDefault(); 
 
-	for (var i = 0; i < 10; i++) {
-		console.log(response); 
-		
+    $.ajax({
+        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
+        method: "GET"
+    }).done(function(response) {
+
+    for (var i = 0; i < 7; i++) {
+        console.log(response); 
+        
         // These put the API responses into the premade list
-		var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
-		var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
-		var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
-		var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);	
-		var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
-		var img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
-		var breweryObject = $("<div></div>").attr("class", "returned-list");
+        var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
+        var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
+        var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
+        var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
+        var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
+        var img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
+        var breweryObject = $("<div></div>").attr("class", "returned-list");
+        var latLong = [response.data[i].latitude, response.data[i].longitude]
 
-
-		breweryObject.append(input, label, name, website);
-		console.log(name);
-		$(".list-items").append(breweryObject);
-		}
+        addPin.push(latLong);
+        breweryObject.append(input, label, name, website);
+        console.log(name);
+        $(".list-items").append(breweryObject);
+        }
 
         displayMap();
-	}); 
-
-
-
-
+    }); 
 });
 
-   function displayMap() {
-                     // $('.premade').css('display', 'block');
-                    $('.load-screen').fadeOut(500, function() {
-                        $('.premade').fadeIn(500);
-                        setTimeout(addMap, 500);
-                    });
+// These two functions set the callback to initialize the google maps
+function displayMap() {
+    // $('.premade').css('display', 'block');
+    $('.load-screen').fadeOut(500, function() {
+        $('.premade').fadeIn(500);
+        setTimeout(addMap, 500);
+    });
     
-                   // initialize();
-               }
+}
 
-    function addMap() {
-       $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>')
-    }
-    // function initialize() {
-    //              // create the map
-
-    //     var myOptions = {
-    //                zoom: 14,
-    //                center: new google.maps.LatLng(0.0, 0.0),
-    //                mapTypeId: google.maps.MapTypeId.ROADMAP
-    //              }
-    //                map = new google.maps.Map(document.getElementById("map_canvas"),
-    //                                            myOptions);
-
-    //             } 
+function addMap() {
+    $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>')
+}
