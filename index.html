@@ -28,7 +28,7 @@
 				<button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i>  Explore a pre-made beer list</button>
 			</div>
 			<div class="col-md-6 options">
-				<button type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Build your own beer list</button>
+				<button type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Build my own beer list</button>
 			</div>
 		</div>
 	</div>
@@ -38,15 +38,13 @@
 <!-- Use a pre-made list -->
 <div class="container premade">
 	<div class="row text-center">
-		<div class="col-md-4 premade-list">
-			<h2 id="list-head"><i class="fa fa-beer" aria-hidden="true"></i> Brewery List</h2>
+		<div class="col-md-5 premade-list">
 			<!-- pred-made list returns to this div -->
 			<div class="list-items"></div>
 		</div>
-		<div class="col-md-8 premade-map" data-spy="affix" data-offset-top="150">
-			<h2 id="list-head"><i class="fa fa-beer" aria-hidden="true"></i> Brewery Map</h2>
+		<div class="col-md-7 premade-map">
 			<!-- map api displays here -->
-			<div id="map-canvas"></div>
+			<div class="map"></div>
 		</div>
 	</div>
 </div>
@@ -73,10 +71,9 @@
             </div>
             <pre id="display-json"></pre>
         </div>
-    </div>
-
-<!-- Script for the Google Maps API -->
-
+     </div>
+	<!-- Replace the value of the key parameter with your own API key. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0ENUIDgPcvFHW_N5XyLrSw8MhTZlbLpU&libraries=visualization&callback=initMap" async defer></script>
 	
 <!-- Link to our JavaScript file -->
 <script type="text/javascript" src="assets/javascript/app.js"></script>

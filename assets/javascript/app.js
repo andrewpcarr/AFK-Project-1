@@ -222,12 +222,11 @@ $("#getPremadeBreweries").on("click", function(e) {
 		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
 		method: "GET"
 	}).done(function(response) {
-<<<<<<< HEAD
+
 	for (var i = 0; i < 20; i++) {
 		console.log(response); 
 		var breweryObject = $("<div></div>").attr("class", "returned-list");
 		var name = response.data[i].brewery.name;
-		var 
 		breweryObject.html(name);
 		console.log(name);
 		$(".list-items").append(breweryObject);
