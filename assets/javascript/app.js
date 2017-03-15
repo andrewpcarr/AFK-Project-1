@@ -159,9 +159,6 @@ $("#getPremadeBreweries").on("click", function(e) {
 		console.log(name);
 		$(".list-items").append(breweryObject);
 		}
-
-	for (var i = 0; i < 10; i++) {
-		console.log(response); 
 		
 
     for (var i = 0; i < 20; i++) {
@@ -194,7 +191,6 @@ $("#getPremadeBreweries").on("click", function(e) {
         displayMap();
 
 
-	}); 
 
     }); 
 });
@@ -217,7 +213,7 @@ function addMap() {
 // $('.choose-list2').on('click', function() {
 //     $('.loadscreen').fadeOut(500, function)
 // });
->>>>>>> master
+
 
 
 // THIS IS FOR THE USER BUILT LIST
@@ -263,7 +259,7 @@ $("#getBrewList").on("click", function(e) {
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() {
     $(this).parent().appendTo('.userList');
-})
+});
 
 // This click goes to the user-made list
 $('#createList').on('click', function() {
@@ -275,6 +271,7 @@ function showList() {
     $('.selectBrew').fadeOut(500, function() {
     $('.premade').fadeIn(500);
     setTimeout(addMap, 500);
-});
+}); 
+};
+
     
-}
