@@ -261,6 +261,12 @@ $('.listItems').on('click', '#brewChoice', function() {
     $(this).parent().appendTo('.userList');
 });
 
+    $('.fixed').fadeIn(1000, function() {
+        $('.fixed').fadeOut(2000)
+    })
+})
+
+
 // This click goes to the user-made list
 $('#createList').on('click', function() {
     showList();
@@ -271,7 +277,14 @@ function showList() {
     $('.selectBrew').fadeOut(500, function() {
     $('.premade').fadeIn(500);
     setTimeout(addMap, 500);
+
 }); 
 };
 
     
+
+});
+    $('.checkbox-inline').html('Visited');
+    $('input').prop('checked', false);
+}
+
