@@ -203,6 +203,9 @@ $("#getBrewList").on("click", function(e) {
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() {
     $(this).parent().appendTo('.userList');
+    $('.fixed').fadeIn(1000, function() {
+        $('.fixed').fadeOut(2000)
+    })
 })
 
 // This click goes to the user-made list
@@ -216,5 +219,6 @@ function showList() {
     $('.premade').fadeIn(500);
     setTimeout(addMap, 500);
 });
-    
+    $('.checkbox-inline').html('Visited');
+    $('input').prop('checked', false);
 }
