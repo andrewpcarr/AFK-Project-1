@@ -1,3 +1,12 @@
+
+// Click event to bring up pre-made list
+$('.choose-list1').on('click', function() {
+	$('.load-screen').fadeOut(1000, function() {
+		$('.premade').fadeIn(1000);
+	});
+	//$('.premade').fadeIn(2000);
+});	
+
 // THIS CHUNK IS AN EXPERIMENT
 $(document).ready(function () { 
   $('#map-canvas').on('shown', function () { 
@@ -38,6 +47,7 @@ function initMap() {
 //     });
 //     //$('.premade').fadeIn(2000);
 // });
+
 
 // Click event to bring up build-your-own list
 $('.choose-list2').on('click', function() {
@@ -90,6 +100,19 @@ var term = "amber"
 var combinedURL = queryURL + apiKey + name + term;
 console.log(combinedURL);
 
+
+//compiles a list of breweries based on the url
+/* function makeBreweryList() {	
+	var breweryObject = $("<div></div>").attr("class", "returned-list");
+	var name = response.data[1].brewery.name;
+	breweryObject.html(name);
+	console.log(name);
+	$(".list-items").append(breweryObject);
+}; */
+
+//function displayBreweries(); 
+
+
 // Not sure if we need this code anymore
 //compiles a list of breweries based on the url
 function makeBreweryList() {    
@@ -100,14 +123,14 @@ function makeBreweryList() {
     $(".list-items").append(breweryObject);
 };
 
-// THIS IS FOR THE PREMADE LIST
-$("#getPremadeBreweries").on("click", function(e) {
-    e.preventDefault(); 
+// This creates the premade list of breweries
 
-    $.ajax({
-        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
-        method: "GET"
-    }).done(function(response) {
+$("#getPremadeBreweries").on("click", function(e) {
+	e.preventDefault(); 
+	$.ajax({
+		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
+		method: "GET"
+	}).done(function(response) {
 
     for (var i = 0; i < 20; i++) {
         console.log(response); 
@@ -125,7 +148,7 @@ $("#getPremadeBreweries").on("click", function(e) {
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
         var breweryObject = $("<div></div>").attr("class", "returned-list");
-        var latLong = [response.data[i].latitude, response.data[i].longitude]
+        var latLong = [response.data[i].latitude, response.data[i].longitude];
         var img;
 
       //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
@@ -137,6 +160,9 @@ $("#getPremadeBreweries").on("click", function(e) {
         }
 
         displayMap();
+
+
+
     }); 
 });
 
@@ -158,6 +184,7 @@ function addMap() {
 // $('.choose-list2').on('click', function() {
 //     $('.loadscreen').fadeOut(500, function)
 // });
+
 
 
 // THIS IS FOR THE USER BUILT LIST
@@ -206,7 +233,8 @@ $('.listItems').on('click', '#brewChoice', function() {
     $('.fixed').fadeIn(1000, function() {
         $('.fixed').fadeOut(2000)
     })
-})
+});
+
 
 // This click goes to the user-made list
 $('#createList').on('click', function() {
@@ -218,7 +246,9 @@ function showList() {
     $('.selectBrew').fadeOut(500, function() {
     $('.premade').fadeIn(500);
     setTimeout(addMap, 500);
-});
+
+}); 
     $('.checkbox-inline').html('Visited');
     $('input').prop('checked', false);
 }
+
