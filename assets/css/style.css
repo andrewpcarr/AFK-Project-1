@@ -16,6 +16,11 @@ body {
 	margin-top: 100px;
 }
 
+.welcome {
+	color: #ffcd16;
+	font-weight: bold;
+}
+
 .choose-list {
 	font-size: 32px;
 	background: none;
@@ -51,10 +56,27 @@ body {
 	font-family: 'Playfair Display', serif;
 }
 
+.path {
+	color: white;
+	padding-bottom: 25px;
+	margin-left: 50px;
+	margin-right: 50px;
+	font-family: 'Playfair Display', serif;
+}
+
 .load-h1 {
 	font-size: 64px;
 	margin-left: 20px;
 	margin-right: 20px;
+}
+
+.pick {
+	font-size: 56px;
+	color: white;
+	padding-bottom: 25px;
+	margin-left: 50px;
+	margin-right: 50px;
+	border-bottom: 1px white solid;
 }
 
 #set-list {

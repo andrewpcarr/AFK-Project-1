@@ -21,16 +21,18 @@
 	<!-- This is where the user chooses a pre-made list or to make their own -->
 	<div class="load-screen">
 		<div class="load-header text-center">
-			<h1 class="load-h1">Let's get to drinkin'!</h1>
-			<h2>Choose a path below</h2>
+			<h1 class="load-h1">Welcome to <span class="welcome">Brew-To-Do!</span></h1>
+			<h2>Let's get started.</h2>
+			<br>
+			<h2>Enter the city you wish to explore:</h2>
 		</div>
-		<div class="row text-center">
-
+		<div class="row text-center path">
+			<h2>Choose how you want to find your breweries:</h2>
 			<div class="col-md-6 options">
-				<button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i>  Explore a pre-made beer list</button>
+				<button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i> Use a pre-made list</button>
 			</div>
 			<div class="col-md-6 options">
-				<button id='getBrewList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Build your own beer list</button>
+				<button id='getBrewList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i> Build your own list</button>
 			</div>
 		</div>
 	</div>
@@ -58,7 +60,9 @@
 <div class="container selectBrew">
 	<div class="row text-center">
 		<div class="col-md-12 chooseBrew">
-			<h2 id="list-head"><i class="fa fa-beer" aria-hidden="true"></i> Choose your breweries!</h2>
+			<h1 class="pick"><i class="fa fa-beer" aria-hidden="true"></i> Choose your breweries!</h1>
+			<h2 class="path">Click "Add to list" to add it to your personal list.</h2>
+			<h2 class="path">When you are satisfied, scroll to the bottom and click "Create my list" to start exploring!</h2>
 			<!-- pred-made list returns to this div -->
 			<div class="listItems"></div>
 			<button id='createList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Create my list!</button>
