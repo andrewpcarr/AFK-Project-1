@@ -4,7 +4,6 @@ $(document).ready(function () {
     google.maps.event.trigger(map, 'resize');  
   });   
 }); 
-
 // This gets our basic map up and running on the premade list
 var uluru;
 var map;
@@ -12,7 +11,6 @@ var marker;
 var addPin = [];
 var newArray = [];
 var location;
-
 function initMap() {
     var uluru = {lat: 30.2002471, lng: -97.7677763};
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -30,7 +28,6 @@ function initMap() {
     // THIS PIECE IS AN EXPERIMENT
     google.maps.event.trigger(map, "resize");
 }
-
 // Click event to bring up pre-made list
 // $('.choose-list1').on('click', function() {
 //     $('.load-screen').fadeOut(1000, function() {
@@ -38,14 +35,12 @@ function initMap() {
 //     });
 //     //$('.premade').fadeIn(2000);
 // });
-
 // Click event to bring up build-your-own list
 $('.choose-list2').on('click', function() {
     $('.load-screen').fadeOut(500, function() {
     $('.selectBrew').fadeIn(500);
     })
 });
-
 // ??
 function retrieve() {
     var messagesRef = new Firebase("https://the-beer-search-1489024741674.firebaseio.com");
@@ -57,7 +52,6 @@ function retrieve() {
         initMap(lat, lng, rad);
     });
 }
-
 // This map function was messing up the display; just commented it out for now
 // function initMap(lat, lng, radius) {
 //     // Create the map.
@@ -81,7 +75,6 @@ function retrieve() {
 //         radius: parseFloat(radius)
 //     });
 // }
-
 // Begining of the code for the Beer API
 var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
 var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
@@ -89,7 +82,6 @@ var name = "&format=json&q="
 var term = "amber"
 var combinedURL = queryURL + apiKey + name + term;
 console.log(combinedURL);
-
 // Not sure if we need this code anymore
 //compiles a list of breweries based on the url
 function makeBreweryList() {    
@@ -99,16 +91,13 @@ function makeBreweryList() {
     console.log(name);
     $(".list-items").append(breweryObject);
 };
-
 // THIS IS FOR THE PREMADE LIST
 $("#getPremadeBreweries").on("click", function(e) {
     e.preventDefault(); 
-
     $.ajax({
         url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
         method: "GET"
     }).done(function(response) {
-
     for (var i = 0; i < 20; i++) {
         console.log(response); 
         
@@ -118,7 +107,6 @@ $("#getPremadeBreweries").on("click", function(e) {
         } else {
             img = $('<img>').attr('src', 'default.png').attr('class', 'img');
         }
-
         var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
         var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
@@ -127,19 +115,15 @@ $("#getPremadeBreweries").on("click", function(e) {
         var breweryObject = $("<div></div>").attr("class", "returned-list");
         var latLong = [response.data[i].latitude, response.data[i].longitude]
         var img;
-
       //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
-
         addPin.push(latLong);
         breweryObject.append(input, label, name, website);
         console.log(name);
         $(".list-items").append(breweryObject);
         }
-
         displayMap();
     }); 
 });
-
 // These two functions set the callback to initialize the google maps
 function displayMap() {
     // $('.premade').css('display', 'block');
@@ -149,26 +133,20 @@ function displayMap() {
     });
     
 }
-
 function addMap() {
     $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>')
 }
-
 // Code for create-your-own list
 // $('.choose-list2').on('click', function() {
 //     $('.loadscreen').fadeOut(500, function)
 // });
-
-
 // THIS IS FOR THE USER BUILT LIST
 $("#getBrewList").on("click", function(e) {
     e.preventDefault(); 
-
     $.ajax({
         url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
         method: "GET"
     }).done(function(response) {
-
     for (var i = 0; i < response.data.length; i++) {
         console.log(response); 
         
@@ -178,7 +156,6 @@ $("#getBrewList").on("click", function(e) {
         } else {
             img = $('<img>').attr('src', 'default.png').attr('class', 'img');
         }
-
         var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
         var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice');
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Add to list');
@@ -187,19 +164,15 @@ $("#getBrewList").on("click", function(e) {
         var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
         var latLong = [response.data[i].latitude, response.data[i].longitude]
         var img;
-
       //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
-
         addPin.push(latLong);
         breweryObject.append(input, label, name, website);
         console.log(name);
         $(".listItems").append(breweryObject);
         }
-
         
     }); 
 });
-
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() {
     $(this).parent().appendTo('.userList');
@@ -207,8 +180,16 @@ $('.listItems').on('click', '#brewChoice', function() {
         $('.fixed').fadeOut(2000)
     })
 })
-
 // This click goes to the user-made list
 $('#createList').on('click', function() {
     showList();
 });
+// This function transitions to the user's list
+function showList() {
+    $('.selectBrew').fadeOut(500, function() {
+    $('.premade').fadeIn(500);
+    setTimeout(addMap, 500);
+});
+    $('.checkbox-inline').html('Visited');
+    $('input').prop('checked', false);
+}
