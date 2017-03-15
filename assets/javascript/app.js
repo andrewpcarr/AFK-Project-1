@@ -123,43 +123,14 @@ function makeBreweryList() {
     $(".list-items").append(breweryObject);
 };
 
-// THIS IS FOR THE PREMADE LIST
-$("#getPremadeBreweries").on("click", function(e) {
-    e.preventDefault(); 
-
-    $.ajax({
-        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
-        method: "GET"
-    }).done(function(response) {
-
-
 // This creates the premade list of breweries
 
 $("#getPremadeBreweries").on("click", function(e) {
 	e.preventDefault(); 
 	$.ajax({
-		url: combinedURL, 
-		method: "GET"
-	}).done(function(response) {
-		console.log(response);
-		
-		//object.style.category.name
-
-	});
-	$.ajax({
 		url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=denver",
 		method: "GET"
 	}).done(function(response) {
-
-	for (var i = 0; i < 20; i++) {
-		console.log(response); 
-		var breweryObject = $("<div></div>").attr("class", "returned-list");
-		var name = response.data[i].brewery.name;
-		breweryObject.html(name);
-		console.log(name);
-		$(".list-items").append(breweryObject);
-		}
-		
 
     for (var i = 0; i < 20; i++) {
         console.log(response); 
@@ -177,7 +148,7 @@ $("#getPremadeBreweries").on("click", function(e) {
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
         var breweryObject = $("<div></div>").attr("class", "returned-list");
-        var latLong = [response.data[i].latitude, response.data[i].longitude]
+        var latLong = [response.data[i].latitude, response.data[i].longitude];
         var img;
 
       //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
@@ -259,12 +230,10 @@ $("#getBrewList").on("click", function(e) {
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() {
     $(this).parent().appendTo('.userList');
-});
-
     $('.fixed').fadeIn(1000, function() {
         $('.fixed').fadeOut(2000)
     })
-})
+});
 
 
 // This click goes to the user-made list
@@ -279,11 +248,6 @@ function showList() {
     setTimeout(addMap, 500);
 
 }); 
-};
-
-    
-
-});
     $('.checkbox-inline').html('Visited');
     $('input').prop('checked', false);
 }
