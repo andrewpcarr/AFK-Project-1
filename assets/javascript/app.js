@@ -13,6 +13,7 @@ var marker;
 var addPin = [];
 var newArray = [];
 var location;
+
 function initMap() {
     var uluru = {lat: addPin[0][0], lng: addPin[0][1]};
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -27,17 +28,19 @@ function initMap() {
             var marker = new google.maps.Marker({
             position: {lat: addPin[i][0], lng: addPin[i][1]},
             map: map,
-            icon: "bar.png"
-        });            
-    }
+            icon: "bar.png",
+            title: "Click to see brewery"
+            });      
+        }
     } else {
         for (i = 0; i < newArray.length; i++) {
-            var customMarker = new google.maps.Marker({
+            var marker = new google.maps.Marker({
             position: {lat: newArray[i][0], lng: newArray[i][1]},
             map: map,
-            icon: "bar.png"
-        });
-    }
+            icon: "bar.png",
+            title: 'Click to see brewery'
+            });
+        }
     }
     // THIS PIECE IS AN EXPERIMENT
     google.maps.event.trigger(map, "resize");
@@ -55,6 +58,9 @@ $('.choose-list2').on('click', function() {
     $('.selectBrew').fadeIn(500);
     })
 });
+
+
+
 // ??
 function retrieve() {
     var messagesRef = new Firebase("https://the-beer-search-1489024741674.firebaseio.com");
@@ -130,15 +136,16 @@ $("#getPremadeBreweries").on("click", function(e) {
         var breweryObject = $("<div></div>").attr("class", "returned-list");
         var latLong = [response.data[i].latitude, response.data[i].longitude]
         var img;
+
       //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
         addPin.push(latLong);
         breweryObject.append(input, label, name, website);
-        console.log(name);
         $(".list-items").append(breweryObject);
         }
         displayMap();
     }); 
 });
+
 // These two functions set the callback to initialize the google maps
 function displayMap() {
     // $('.premade').css('display', 'block');
@@ -177,14 +184,13 @@ $("#getBrewList").on("click", function(e) {
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Add to list');
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
-        var latLong = [response.data[i].latitude, response.data[i].longitude];
+        var latLong = [response.data[i].latitude, response.data[i].longitude, response.data[i].brewery.name];
         var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
         var img;
 
         addPin.push(latLong);
 
         breweryObject.append(input, label, name, website);
-        console.log(name);
         $(".listItems").append(breweryObject);
         }
         
