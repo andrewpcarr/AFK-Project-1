@@ -19,13 +19,25 @@ function initMap() {
       zoom: 10,
       center: uluru
     });
+
+    // this determines that the loop will run for the premade
+    if (newArray.length === 0) {
         // This beautiful loop adds multiple markers to the map
         for (i = 0; i < addPin.length; i++) {
             var marker = new google.maps.Marker({
             position: {lat: addPin[i][0], lng: addPin[i][1]},
             map: map,
             icon: "bar.png"
+        });            
+    }
+    } else {
+        for (i = 0; i < newArray.length; i++) {
+            var customMarker = new google.maps.Marker({
+            position: {lat: newArray[i][0], lng: newArray[i][1]},
+            map: map,
+            icon: "bar.png"
         });
+    }
     }
     // THIS PIECE IS AN EXPERIMENT
     google.maps.event.trigger(map, "resize");
@@ -161,15 +173,16 @@ $("#getBrewList").on("click", function(e) {
             img = $('<img>').attr('src', 'default.png').attr('class', 'img');
         }
         var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
-        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice');
+        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice').attr('latitude', response.data[i].latitude).attr('longitude', response.data[i].longitude);
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Add to list');
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
+        var latLong = [response.data[i].latitude, response.data[i].longitude];
         var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
-        var latLong = [response.data[i].latitude, response.data[i].longitude]
         var img;
-        //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
+        
         addPin.push(latLong);
+
         breweryObject.append(input, label, name, website);
         console.log(name);
         $(".listItems").append(breweryObject);
@@ -177,8 +190,23 @@ $("#getBrewList").on("click", function(e) {
         
     }); 
 });
+
+
+ var holderArray = [];
+
 // This click function adds the user choices onto their list
-$('.listItems').on('click', '#brewChoice', function() {
+$('.listItems').on('click', '#brewChoice', function() { 
+    var lat = Number($(this).attr("latitude"));
+    var long = Number($(this).attr("longitude"));
+       console.log(lat); 
+    console.log(long);
+    holderArray.push(lat);
+    holderArray.push(long);
+    console.log(holderArray);
+    newArray.push(holderArray);
+    holderArray = [];
+    console.log(holderArray);
+    console.log(newArray); 
     $(this).parent().appendTo('.userList');
     $('.fixed').fadeIn(1000, function() {
         $('.fixed').fadeOut(2000)
