@@ -14,7 +14,7 @@ var addPin = [];
 var newArray = [];
 var location;
 
-function initMap() {
+var initMap = function() {
     var uluru = {lat: addPin[0][0], lng: addPin[0][1]};
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 10,
@@ -151,12 +151,19 @@ function displayMap() {
     // $('.premade').css('display', 'block');
     $('.load-screen').fadeOut(500, function() {
         $('.premade').fadeIn(500);
+        // setTimeout(removeMap, 200);
         setTimeout(addMap, 500);
     });
     
 }
+
+/* function removeMap() {
+    $("#script").remove();
+} */ 
+
+var mapAdder = '<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap" id="script"></script>';
 function addMap() {
-    $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap" id="script"></script>')
+    $('body').append(mapAdder)
 }
 // Code for create-your-own list
 // $('.choose-list2').on('click', function() {
@@ -255,7 +262,9 @@ $('#start-over').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    $('#script').remove();
+    removeMap();
+    console.log($("#script"));
+
 });
 
 $('#start-over2').on('click', function() {
@@ -265,5 +274,26 @@ $('#start-over2').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    $('#script').remove();
-});
+    removeMap();
+    console.log($("#script"));
+     });
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDjhyI-o4hIeBJmMi2PXfv9uCkqzUP3vg0",
+    authDomain: "afk-project.firebaseapp.com",
+    databaseURL: "https://afk-project.firebaseio.com",
+    storageBucket: "afk-project.appspot.com",
+    messagingSenderId: "846672298002"
+  };
+  firebase.initializeApp(config);
+
+  }
+
+
+
+  //Starting to get the myList stuff to work.
+$("#myList").on("click", function() {
+
+})
+
