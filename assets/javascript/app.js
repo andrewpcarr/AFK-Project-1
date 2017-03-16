@@ -176,7 +176,8 @@ $("#getBrewList").on("click", function(e) {
         var latLong = [response.data[i].latitude, response.data[i].longitude];
         var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
         var img;
-      //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";      
+        addPin.push(latLong);
+
         breweryObject.append(input, label, name, website);
         console.log(name);
         $(".listItems").append(breweryObject);
@@ -184,6 +185,7 @@ $("#getBrewList").on("click", function(e) {
         
     }); 
 });
+
 
  var holderArray = [];
 
