@@ -156,7 +156,7 @@ function displayMap() {
     
 }
 function addMap() {
-    $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap"></script>')
+    $('body').append('<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNTnfxOvqHInX65qwCMEMsBPtHFj_vtWc&callback=initMap" id="script"></script>')
 }
 // Code for create-your-own list
 // $('.choose-list2').on('click', function() {
@@ -245,4 +245,25 @@ $(function() {
       $('html, body').animate({scrollTop: $('section.ok').offset().top }, 'slow');
       return false;
     });
+});
+
+// Click functions takes you back to the start screen
+$('#start-over').on('click', function() {
+    $('.selectBrew').fadeOut(500, function() {
+    $('.load-screen').fadeIn(500);
+    });
+    $('.list-items').empty();
+    $('.listItems').empty();
+    $('.userList').empty();
+    $('#script').remove();
+});
+
+$('#start-over2').on('click', function() {
+    $('.premade').fadeOut(500, function() {
+    $('.load-screen').fadeIn(500);
+    });
+    $('.list-items').empty();
+    $('.listItems').empty();
+    $('.userList').empty();
+    $('#script').remove();
 });

@@ -294,3 +294,7 @@ p {
     transform: translateY(-5px);
   }
 }
+
+#createList {
+	margin-right: 30px;
+}
