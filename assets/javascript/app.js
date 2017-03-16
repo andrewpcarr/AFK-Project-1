@@ -1,9 +1,9 @@
-// THIS CHUNK IS AN EXPERIMENT
-$(document).ready(function () { 
-  $('#map-canvas').on('shown', function () { 
-    google.maps.event.trigger(map, 'resize');  
-  });   
-}); 
+// // THIS CHUNK IS AN EXPERIMENT
+// $(document).ready(function () { 
+//   $('#map-canvas').on('shown', function () { 
+//     google.maps.event.trigger(map, 'resize');  
+//   });   
+// }); 
 
 var city;
 // This gets our basic map up and running on the premade list
@@ -43,7 +43,7 @@ function initMap() {
         }
     }
     // THIS PIECE IS AN EXPERIMENT
-    google.maps.event.trigger(map, "resize");
+    // google.maps.event.trigger(map, "resize");
 }
 // Click event to bring up pre-made list
 // $('.choose-list1').on('click', function() {
@@ -96,21 +96,21 @@ function retrieve() {
 //     });
 // }
 // Begining of the code for the Beer API
-var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
-var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
-var name = "&format=json&q="
-var term = "amber"
-var combinedURL = queryURL + apiKey + name + term;
-console.log(combinedURL);
-// Not sure if we need this code anymore
-//compiles a list of breweries based on the url
-function makeBreweryList() {    
-    var breweryObject = $("<div></div>").attr("class", "returned-list");
-    var name = response.data[1].brewery.name;
-    breweryObject.html(name);
-    console.log(name);
-    $(".list-items").append(breweryObject);
-};
+// var queryURL = "http://api.brewerydb.com/v2/search/?key="; 
+// var apiKey = "29c36b203d700ec0ec3b05fcd30ec36a";
+// var name = "&format=json&q="
+// var term = "amber"
+// var combinedURL = queryURL + apiKey + name + term;
+// console.log(combinedURL);
+// // Not sure if we need this code anymore
+// //compiles a list of breweries based on the url
+// function makeBreweryList() {    
+//     var breweryObject = $("<div></div>").attr("class", "returned-list");
+//     var name = response.data[1].brewery.name;
+//     breweryObject.html(name);
+//     console.log(name);
+//     $(".list-items").append(breweryObject);
+// };
 // THIS IS FOR THE PREMADE LIST
 $("#getPremadeBreweries").on("click", function(e) {
     e.preventDefault(); 
@@ -202,19 +202,23 @@ $("#getBrewList").on("click", function(e) {
 
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() { 
-    var lat = Number($(this).attr("latitude"));
-    var long = Number($(this).attr("longitude"));
-    console.log(lat); 
-    console.log(long);
+    var geoloc = [Number($(this).attr("latitude")), Number($(this).attr("longitude"))];
+    newArray.push(geoloc);
+
+    // var lat = Number($(this).attr("latitude"));
+    // var long = Number($(this).attr("longitude"));
+
+    // console.log(lat); 
+    // console.log(long);
     
-    holderArray.push(lat);
-    holderArray.push(long);
-    console.log(holderArray);
+    // holderArray.push(lat);
+    // holderArray.push(long);
+    // console.log(holderArray);
     
-    newArray.push(holderArray);
-    holderArray = [];
-    console.log(holderArray);
-    console.log(newArray); 
+    // newArray.push(holderArray);
+    // holderArray = [];
+    // console.log(holderArray);
+    // console.log(newArray); 
     
     $(this).parent().appendTo('.userList');
     $('.fixed').fadeIn(1000, function() {
@@ -235,4 +239,10 @@ function showList() {
     $('input').prop('checked', false);
 }
 
-//this is a test comment
+// Click function for the scroll button on the load screen
+$(function() {
+    $('.scroll-down').click (function() {
+      $('html, body').animate({scrollTop: $('section.ok').offset().top }, 'slow');
+      return false;
+    });
+});

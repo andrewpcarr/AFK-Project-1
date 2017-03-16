@@ -22,28 +22,48 @@
     <div class="load-screen">
         <div class="load-header text-center">
             <h1 class="load-h1">Welcome to <span class="welcome">Brew-To-Do!</span></h1>
-            <h2>Let's get started.</h2>
             <br>
-            <h2>Enter the city you wish to explore:</h2>
+            <h2>Brew-To-Do makes it easy to discover great breweries in your area, or on the road away from home.</h2>
             <br>
-            <input type="email" class="form-control text-center" id="email" placeholder="Enter City">
+            <h2>You can build your own list or we can make one for you.</h2>
+            <br>
+            <h2>Click below to get started.</h2>
+            <br>
+
+			<!-- This is the scroll button -->
+			<section>
+				<a href="#" class="scroll-down" address="true"></a>
+			</section>
+			
+		</div>
+	</div>
+  	<div class="load-screen">
+        <div class="load-header text-center">
+        	<!-- scroll button scrolls to this section -->
+        	<section class="ok"></section>
+            <h2 id="city">Enter the city you wish to explore:</h2>
+            <br>
+            <input type="email" class="form-control text-center" id="email" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'">
         </div>
         <div class="row text-center path">
             <h2>Choose how you want to find your breweries:</h2>
             <div class="col-md-6 options">
-                <button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i> Use a pre-made list</button>
+                <button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i> Use our premade list</button>
             </div>
             <div class="col-md-6 options">
                 <button id='getBrewList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i> Build your own list</button>
             </div>
+            
         <div class="row text-center">
+        	<h2 id="left-off">...or pick up where you left off.</h2>
         	<div class="col-md-12 myList">
-                <button id='myList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i> I already have a list</button>
+                <button id='myList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i> Take me to my list</button>
             </div>
         </div>
         </div>
     </div>
 </div>
+
 <!-- Use a pre-made list -->
 <div class="container premade">
     <div class="row text-center">
@@ -69,7 +89,7 @@
             <h2 class="path">Click "Add to list" to add it to your personal list.</h2>
             <h2 class="path">When you are satisfied, scroll to the bottom and click "Create my list" to start exploring!</h2>
             <!-- pred-made list returns to this div -->
-            <div class="listItems"></div>
+            <div class="listItems" id="build-list"></div>
             <button id='createList' type="button" class="btn choose-list choose-list2"><i class="fa fa-beer" aria-hidden="true"></i>    Create my list!</button>
         </div>
     <div class="row text-center">
