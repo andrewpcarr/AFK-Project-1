@@ -4,6 +4,8 @@ $(document).ready(function () {
     google.maps.event.trigger(map, 'resize');  
   });   
 }); 
+
+var city;
 // This gets our basic map up and running on the premade list
 var uluru;
 var map;
@@ -12,7 +14,7 @@ var addPin = [];
 var newArray = [];
 var location;
 function initMap() {
-    var uluru = {lat: 30.2002471, lng: -97.7677763};
+    var uluru = {lat: addPin[0][0], lng: addPin[0][1]};
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
       zoom: 10,
       center: uluru
@@ -94,8 +96,9 @@ function makeBreweryList() {
 // THIS IS FOR THE PREMADE LIST
 $("#getPremadeBreweries").on("click", function(e) {
     e.preventDefault(); 
+    city = $('#email').val()
     $.ajax({
-        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
+        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=" + city,
         method: "GET"
     }).done(function(response) {
     for (var i = 0; i < 20; i++) {
@@ -143,8 +146,9 @@ function addMap() {
 // THIS IS FOR THE USER BUILT LIST
 $("#getBrewList").on("click", function(e) {
     e.preventDefault(); 
+    city = $('#email').val()
     $.ajax({
-        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=austin",
+        url: "http://api.brewerydb.com/v2/locations/?key=29c36b203d700ec0ec3b05fcd30ec36a&locality=" + city,
         method: "GET"
     }).done(function(response) {
     for (var i = 0; i < response.data.length; i++) {
@@ -164,7 +168,7 @@ $("#getBrewList").on("click", function(e) {
         var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
         var latLong = [response.data[i].latitude, response.data[i].longitude]
         var img;
-      //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
+        //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
         addPin.push(latLong);
         breweryObject.append(input, label, name, website);
         console.log(name);
