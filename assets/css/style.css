@@ -170,6 +170,7 @@ a {
     padding: 30px;
     border-radius: 75px;
     z-index: 2;
+    overflow: hidden;
 }
 .fixed {
     position: fixed;
