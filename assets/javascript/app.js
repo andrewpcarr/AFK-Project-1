@@ -255,7 +255,7 @@ $('#start-over').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    $('#script').remove();
+    var body = $('#script')[0];
 });
 
 $('#start-over2').on('click', function() {
@@ -265,5 +265,6 @@ $('#start-over2').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    $('#script').remove();
+    var body = $('#script')[0];
 });
+
