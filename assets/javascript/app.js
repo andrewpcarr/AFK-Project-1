@@ -180,7 +180,7 @@ $("#getBrewList").on("click", function(e) {
         var latLong = [response.data[i].latitude, response.data[i].longitude];
         var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
         var img;
-        
+
         addPin.push(latLong);
 
         breweryObject.append(input, label, name, website);
@@ -191,22 +191,25 @@ $("#getBrewList").on("click", function(e) {
     }); 
 });
 
-
+// Holds temporary lat and long
  var holderArray = [];
 
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() { 
     var lat = Number($(this).attr("latitude"));
     var long = Number($(this).attr("longitude"));
-       console.log(lat); 
+    console.log(lat); 
     console.log(long);
+    
     holderArray.push(lat);
     holderArray.push(long);
     console.log(holderArray);
+    
     newArray.push(holderArray);
     holderArray = [];
     console.log(holderArray);
     console.log(newArray); 
+    
     $(this).parent().appendTo('.userList');
     $('.fixed').fadeIn(1000, function() {
         $('.fixed').fadeOut(2000)
