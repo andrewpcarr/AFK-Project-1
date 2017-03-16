@@ -29,8 +29,13 @@ function initMap() {
             position: {lat: addPin[i][0], lng: addPin[i][1]},
             map: map,
             icon: "bar.png",
-            title: "Click to see brewery"
-            });      
+            title: addPin[i][2]
+            });    
+            
+            marker.addListener('click', function() {
+                map.setZoom(14);
+                map.setCenter(this.getPosition());
+            })
         }
     } else {
         for (i = 0; i < newArray.length; i++) {
@@ -38,8 +43,13 @@ function initMap() {
             position: {lat: newArray[i][0], lng: newArray[i][1]},
             map: map,
             icon: "bar.png",
-            title: 'Click to see brewery'
-            });
+            title: addPin[i][2]
+            });    
+            
+            marker.addListener('click', function() {
+                map.setZoom(14);
+                map.setCenter(this.getPosition());
+            });  
         }
     }
     // THIS PIECE IS AN EXPERIMENT
@@ -134,7 +144,7 @@ $("#getPremadeBreweries").on("click", function(e) {
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
         var breweryObject = $("<div></div>").attr("class", "returned-list");
-        var latLong = [response.data[i].latitude, response.data[i].longitude]
+        var latLong = [response.data[i].latitude, response.data[i].longitude, response.data[i].brewery.name]
         var img;
 
       //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
@@ -255,7 +265,6 @@ $('#start-over').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    var body = $('#script')[0];
 });
 
 $('#start-over2').on('click', function() {
@@ -265,6 +274,5 @@ $('#start-over2').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    var body = $('#script')[0];
 });
 
