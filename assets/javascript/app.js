@@ -13,6 +13,7 @@ var marker;
 var addPin = [];
 var newArray = [];
 var location;
+var map;
 
 var initMap = function() {
     var uluru = {lat: addPin[0][0], lng: addPin[0][1]};
@@ -29,8 +30,13 @@ var initMap = function() {
             position: {lat: addPin[i][0], lng: addPin[i][1]},
             map: map,
             icon: "bar.png",
-            title: "Click to see brewery"
-            });      
+            title: addPin[i][2]
+            });    
+            
+            marker.addListener('click', function() {
+                map.setZoom(15);
+                map.setCenter(this.getPosition());
+            })
         }
     } else {
         for (i = 0; i < newArray.length; i++) {
@@ -38,8 +44,13 @@ var initMap = function() {
             position: {lat: newArray[i][0], lng: newArray[i][1]},
             map: map,
             icon: "bar.png",
-            title: 'Click to see brewery'
-            });
+            title: newArray[i][2]
+            });    
+            
+            marker.addListener('click', function() {
+                map.setZoom(15);
+                map.setCenter(this.getPosition());
+            });  
         }
     }
     // THIS PIECE IS AN EXPERIMENT
@@ -134,7 +145,7 @@ $("#getPremadeBreweries").on("click", function(e) {
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
         var breweryObject = $("<div></div>").attr("class", "returned-list");
-        var latLong = [response.data[i].latitude, response.data[i].longitude]
+        var latLong = [response.data[i].latitude, response.data[i].longitude, response.data[i].brewery.name]
         var img;
 
       //  var timeline = data.timelineList ? data.timelineList[0].name : "not available";
@@ -187,12 +198,12 @@ $("#getBrewList").on("click", function(e) {
             img = $('<img>').attr('src', 'default.png').attr('class', 'img');
         }
         var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
-        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice').attr('latitude', response.data[i].latitude).attr('longitude', response.data[i].longitude);
+        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice').attr('latitude', response.data[i].latitude).attr('longitude', response.data[i].longitude).attr('name', response.data[i].brewery.name);
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Add to list');
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
-        var latLong = [response.data[i].latitude, response.data[i].longitude, response.data[i].brewery.name];
-        var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
+        var latLong = [response.data[i].latitude, response.data[i].longitude];
+        var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'toggle');
         var img;
 
         addPin.push(latLong);
@@ -206,11 +217,25 @@ $("#getBrewList").on("click", function(e) {
 
 // Holds temporary lat and long
  var holderArray = [];
+ var geoloc;
 
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() { 
-    var geoloc = [Number($(this).attr("latitude")), Number($(this).attr("longitude"))];
+
+    geoloc = [Number($(this).attr("latitude")), Number($(this).attr("longitude")), $(this).attr("name")];
     newArray.push(geoloc);
+    geoloc = '';
+
+    $(this).parent('div').fadeOut(750, function() {
+        $(this).appendTo('.userList');
+    });
+
+    $('.fixed').fadeIn(500, function() {
+        $('.fixed').fadeOut(2000)
+    })
+    
+    // $(this).next().animate({width: 'toggle'})
+
 
     // var lat = Number($(this).attr("latitude"));
     // var long = Number($(this).attr("longitude"));
@@ -226,11 +251,7 @@ $('.listItems').on('click', '#brewChoice', function() {
     // holderArray = [];
     // console.log(holderArray);
     // console.log(newArray); 
-    
-    $(this).parent().appendTo('.userList');
-    $('.fixed').fadeIn(1000, function() {
-        $('.fixed').fadeOut(2000)
-    })
+
 })
 // This click goes to the user-made list
 $('#createList').on('click', function() {
@@ -244,6 +265,7 @@ function showList() {
 });
     $('.checkbox-inline').html('Visited');
     $('input').prop('checked', false);
+    $('.returned-list').fadeIn(1500);
 }
 
 // Click function for the scroll button on the load screen
@@ -264,6 +286,8 @@ $('#start-over').on('click', function() {
     $('.userList').empty();
     removeMap();
     console.log($("#script"));
+    addPin = [];
+    newArray = [];
 
 });
 
@@ -288,7 +312,6 @@ $('#start-over2').on('click', function() {
   };
   firebase.initializeApp(config);
 
-  }
 
 
 
@@ -297,3 +320,41 @@ $("#myList").on("click", function() {
 
 })
 
+
+$('#myList').on('click', function() {
+    $('.load-screen').fadeOut(500, function() {
+        $('.premade').fadeIn(500);
+    });
+});
+
+// THIS IS THE ANIME.JS CODE
+anime({
+  targets: 'path',
+  strokeDashoffset: function(el) {
+    var pathLength = el.getTotalLength();
+    el.setAttribute('stroke-dasharray', pathLength);
+    return [-pathLength, 0];
+  },
+  stroke: {
+    value: function(el, i) {
+      return 'rgb(255,'+ i * 8 +', 0)'; 
+    },
+    easing: 'linear',
+    duration: 2000,
+  },
+  strokeWidth: {
+    value: 6,
+    easing: 'linear',
+    delay: function(el, i) { 
+      return 1200 + (i * 40); 
+    },
+    duration: 800,
+  },
+  delay: function(el, i) { 
+    return i * 60; 
+  },
+  duration: 1200,
+  easing: 'easeOutExpo',
+  loop: true,
+  direction: 'alternate'
+});
