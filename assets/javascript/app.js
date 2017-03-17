@@ -43,7 +43,7 @@ function initMap() {
             position: {lat: newArray[i][0], lng: newArray[i][1]},
             map: map,
             icon: "bar.png",
-            title: addPin[i][2]
+            title: newArray[i][2]
             });    
             
             marker.addListener('click', function() {
@@ -190,12 +190,12 @@ $("#getBrewList").on("click", function(e) {
             img = $('<img>').attr('src', 'default.png').attr('class', 'img');
         }
         var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
-        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice').attr('latitude', response.data[i].latitude).attr('longitude', response.data[i].longitude);
+        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice').attr('latitude', response.data[i].latitude).attr('longitude', response.data[i].longitude).attr('name', response.data[i].brewery.name);
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Add to list');
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
-        var latLong = [response.data[i].latitude, response.data[i].longitude, response.data[i].brewery.name];
-        var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'selection');
+        var latLong = [response.data[i].latitude, response.data[i].longitude];
+        var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'toggle');
         var img;
 
         addPin.push(latLong);
@@ -209,11 +209,25 @@ $("#getBrewList").on("click", function(e) {
 
 // Holds temporary lat and long
  var holderArray = [];
+ var geoloc;
 
 // This click function adds the user choices onto their list
 $('.listItems').on('click', '#brewChoice', function() { 
-    var geoloc = [Number($(this).attr("latitude")), Number($(this).attr("longitude"))];
+
+    geoloc = [Number($(this).attr("latitude")), Number($(this).attr("longitude")), $(this).attr("name")];
     newArray.push(geoloc);
+    geoloc = '';
+
+    $(this).parent('div').fadeOut(750, function() {
+        $(this).appendTo('.userList');
+    });
+
+    $('.fixed').fadeIn(1000, function() {
+        $('.fixed').fadeOut(1000)
+    })
+    
+    // $(this).next().animate({width: 'toggle'})
+
 
     // var lat = Number($(this).attr("latitude"));
     // var long = Number($(this).attr("longitude"));
@@ -229,11 +243,7 @@ $('.listItems').on('click', '#brewChoice', function() {
     // holderArray = [];
     // console.log(holderArray);
     // console.log(newArray); 
-    
-    $(this).parent().appendTo('.userList');
-    $('.fixed').fadeIn(1000, function() {
-        $('.fixed').fadeOut(2000)
-    })
+
 })
 // This click goes to the user-made list
 $('#createList').on('click', function() {
@@ -247,6 +257,7 @@ function showList() {
 });
     $('.checkbox-inline').html('Visited');
     $('input').prop('checked', false);
+    $('.returned-list').fadeIn(1500);
 }
 
 // Click function for the scroll button on the load screen

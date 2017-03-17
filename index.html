@@ -9,6 +9,11 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- jQuery link -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- jQueryUI link -->
+    <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
     <!-- Google Fonts link -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <!-- Font Awesome link -->
@@ -22,6 +27,7 @@
     <div class="load-screen">
         <div class="load-header text-center">
             <h1 class="load-h1">Welcome to <span class="welcome">Brew-To-Do!</span></h1>
+            <br>
             <br>
             <h2>Brew-To-Do makes it easy to discover great breweries in your area, or on the road away from home.</h2>
             <br>
@@ -41,12 +47,12 @@
         <div class="load-header text-center">
         	<!-- scroll button scrolls to this section -->
         	<section class="ok"></section>
-            <h2 id="city">Enter the city you wish to explore:</h2>
+            <h2 id="city">1. Enter the city you wish to explore.</h2>
             <br>
             <input type="email" class="form-control text-center" id="email" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'">
         </div>
         <div class="row text-center path">
-            <h2>Choose how you want to find your breweries:</h2>
+            <h2>2. Choose how you want to find your breweries.</h2>
             <div class="col-md-6 options">
                 <button id="getPremadeBreweries" type="button" class="btn choose-list choose-list1"><i class="fa fa-beer" aria-hidden="true"></i> Use our premade list</button>
             </div>
