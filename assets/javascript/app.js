@@ -13,6 +13,7 @@ var marker;
 var addPin = [];
 var newArray = [];
 var location;
+var map;
 
 function initMap() {
     var uluru = {lat: addPin[0][0], lng: addPin[0][1]};
@@ -33,7 +34,7 @@ function initMap() {
             });    
             
             marker.addListener('click', function() {
-                map.setZoom(14);
+                map.setZoom(15);
                 map.setCenter(this.getPosition());
             })
         }
@@ -47,7 +48,7 @@ function initMap() {
             });    
             
             marker.addListener('click', function() {
-                map.setZoom(14);
+                map.setZoom(15);
                 map.setCenter(this.getPosition());
             });  
         }
@@ -222,8 +223,8 @@ $('.listItems').on('click', '#brewChoice', function() {
         $(this).appendTo('.userList');
     });
 
-    $('.fixed').fadeIn(1000, function() {
-        $('.fixed').fadeOut(1000)
+    $('.fixed').fadeIn(500, function() {
+        $('.fixed').fadeOut(2000)
     })
     
     // $(this).next().animate({width: 'toggle'})
@@ -276,6 +277,8 @@ $('#start-over').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
+    addPin = [];
+    newArray = [];
 });
 
 $('#start-over2').on('click', function() {
@@ -285,5 +288,44 @@ $('#start-over2').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
+    addPin = [];
+    newArray = [];
 });
 
+$('#myList').on('click', function() {
+    $('.load-screen').fadeOut(500, function() {
+        $('.premade').fadeIn(500);
+    });
+});
+
+// THIS IS THE ANIME.JS CODE
+anime({
+  targets: 'path',
+  strokeDashoffset: function(el) {
+    var pathLength = el.getTotalLength();
+    el.setAttribute('stroke-dasharray', pathLength);
+    return [-pathLength, 0];
+  },
+  stroke: {
+    value: function(el, i) {
+      return 'rgb(255,'+ i * 8 +', 0)'; 
+    },
+    easing: 'linear',
+    duration: 2000,
+  },
+  strokeWidth: {
+    value: 6,
+    easing: 'linear',
+    delay: function(el, i) { 
+      return 1200 + (i * 40); 
+    },
+    duration: 800,
+  },
+  delay: function(el, i) { 
+    return i * 60; 
+  },
+  duration: 1200,
+  easing: 'easeOutExpo',
+  loop: true,
+  direction: 'alternate'
+});
