@@ -15,6 +15,19 @@ var newArray = [];
 var location;
 var map;
 
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDjhyI-o4hIeBJmMi2PXfv9uCkqzUP3vg0",
+    authDomain: "afk-project.firebaseapp.com",
+    databaseURL: "https://afk-project.firebaseio.com",
+    storageBucket: "afk-project.appspot.com",
+    messagingSenderId: "846672298002"
+  };
+firebase.initializeApp(config);
+
+var database = firebase.database(); 
+
+
 var initMap = function() {
     var uluru = {lat: addPin[0][0], lng: addPin[0][1]};
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -83,6 +96,11 @@ function retrieve() {
         initMap(lat, lng, rad);
     });
 }
+
+
+
+
+
 // This map function was messing up the display; just commented it out for now
 // function initMap(lat, lng, radius) {
 //     // Create the map.
@@ -122,6 +140,8 @@ function retrieve() {
 //     console.log(name);
 //     $(".list-items").append(breweryObject);
 // };
+//Object that stores the data 
+var detailsStorer = [];
 // THIS IS FOR THE PREMADE LIST
 $("#getPremadeBreweries").on("click", function(e) {
     e.preventDefault(); 
@@ -131,8 +151,16 @@ $("#getPremadeBreweries").on("click", function(e) {
         method: "GET"
     }).done(function(response) {
     for (var i = 0; i < 20; i++) {
-        console.log(response); 
-        
+        console.log(response);       
+        var detailsObject = {
+            elPic: response.data[i].brewery.images, 
+            nombre: response.data[i].brewery.name, 
+            elwebsito: response.data[i].website, 
+            elLatitude: response.data[i].latitude, 
+            elLongitutde: response.data[i].longitude
+        } 
+        detailsStorer.push(detailsObject);
+        console.log(detailsObject);              
         // These put the API responses into the premade list
         if (typeof response.data[i].brewery.images != "undefined") {
             img = $('<img>').attr('src', response.data[i].brewery.images.icon).attr('class', 'img');
@@ -140,7 +168,7 @@ $("#getPremadeBreweries").on("click", function(e) {
             img = $('<img>').attr('src', 'default.png').attr('class', 'img');
         }
         var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
-        var input = $('<input>').attr('type', 'checkbox').attr('value', 'Visited');
+        var input = $('<input>').attr('id', 'checker').attr('type', 'checkbox').attr('value', 'Visited');
         var label = $('<label></label>').attr('class', 'checkbox-inline').html('Visited');
         var name = $("<h3></h3>").attr("class", "headline").html(response.data[i].brewery.name).prepend(img);   
         var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
@@ -152,10 +180,23 @@ $("#getPremadeBreweries").on("click", function(e) {
         addPin.push(latLong);
         breweryObject.append(input, label, name, website);
         $(".list-items").append(breweryObject);
+        $('#checker').click(function() {
+        if (this.checked) {
+            database.ref().set({
+                storedObject: [i, response.data[i].brewery.name, response.data[i].website],
+                storedlatLong: [response.data[i].latitude, response.data[i].longitude, response.data[i].brewery.name]
+            });
+        }      
+        }); 
         }
-        displayMap();
+       
+        displayMap(); 
+      
     }); 
 });
+
+
+console.log(detailsStorer);
 
 // These two functions set the callback to initialize the google maps
 function displayMap() {
@@ -210,10 +251,11 @@ $("#getBrewList").on("click", function(e) {
 
         breweryObject.append(input, label, name, website);
         $(".listItems").append(breweryObject);
-        }
-        
+        }     
     }); 
 });
+
+
 
 // Holds temporary lat and long
  var holderArray = [];
@@ -284,7 +326,6 @@ $('#start-over').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    removeMap();
     console.log($("#script"));
     addPin = [];
     newArray = [];
@@ -298,27 +339,33 @@ $('#start-over2').on('click', function() {
     $('.list-items').empty();
     $('.listItems').empty();
     $('.userList').empty();
-    removeMap();
     console.log($("#script"));
+    addPin = [];
+    newArray = [];
      });
-
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDjhyI-o4hIeBJmMi2PXfv9uCkqzUP3vg0",
-    authDomain: "afk-project.firebaseapp.com",
-    databaseURL: "https://afk-project.firebaseio.com",
-    storageBucket: "afk-project.appspot.com",
-    messagingSenderId: "846672298002"
-  };
-  firebase.initializeApp(config);
-
-
 
 
   //Starting to get the myList stuff to work.
 $("#myList").on("click", function() {
 
-})
+   for (var i = 0; i <= detailsStorer.length; i++) { 
+
+      if (typeof detailsStorer[i].elPic != "undefined") {
+            img = $('<img>').attr('src', detailsStorer[i].elPic).attr('class', 'img');
+        } else {
+            img = $('<img>').attr('src', 'default.png').attr('class', 'img');
+        }
+        var number = $("<span></span>").attr("class", "label label-primary number").html(i + 1);
+        var input = $('<input>').attr('type', 'checkbox').attr('value', 'add-to-list').attr('id', 'brewChoice').attr('class', 'brewChoice').attr('latitude', response.data[i].latitude).attr('longitude', response.data[i].longitude).attr('name', response.data[i].brewery.name);
+        var label = $('<label></label>').attr('class', 'checkbox-inline').html('Add to list');
+        var name = $("<h3></h3>").attr("class", "headline").html(detailsStorer[i].nombre);  
+        var website = $('<a></a>').attr('href', response.data[i].website).attr('target', '_blank').html(response.data[i].website);
+        var latLong = [response.data[i].latitude, response.data[i].longitude];
+        var breweryObject = $("<div></div>").attr("class", "returned-list").attr('id', 'toggle');
+        var img;
+
+    }
+}); 
 
 
 $('#myList').on('click', function() {
@@ -358,3 +405,13 @@ anime({
   loop: true,
   direction: 'alternate'
 });
+
+
+
+
+
+
+
+
+
+
