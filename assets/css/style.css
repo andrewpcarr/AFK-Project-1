@@ -1,5 +1,6 @@
 body {
-    background: url('../images/background4.png') repeat #ffffff;
+    background: url('../images/background3.jpg') repeat #ffffff;
+    background-attachment: fixed;
     height: 100%;
     font-family: 'Playfair Display', serif;
     z-index: 1;
@@ -207,6 +208,10 @@ a {
     padding: 0px 5px 0px 5px;
     display: none;
     font-style: italic;
+}
+
+#fixed {
+	position: fixed;
 }
 
 #email {
