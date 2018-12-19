@@ -36,7 +36,7 @@ var initMap = function() {
       var marker = new google.maps.Marker({
         position: { lat: addPin[i][0], lng: addPin[i][1] },
         map: map,
-        icon: "bar.png",
+        icon: "./assets/images/bar.png",
         title: addPin[i][2]
       });
 
@@ -50,7 +50,7 @@ var initMap = function() {
       var marker = new google.maps.Marker({
         position: { lat: newArray[i][0], lng: newArray[i][1] },
         map: map,
-        icon: "bar.png",
+        icon: "./assets/images/bar.png",
         title: newArray[i][2]
       });
 
