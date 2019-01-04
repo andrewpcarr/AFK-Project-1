@@ -12,6 +12,7 @@
 .eslintrc
 *.ini
 bower_components
+apiKeys.js
 
 /node_modules
 /build
