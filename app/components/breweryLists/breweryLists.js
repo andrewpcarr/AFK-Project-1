@@ -27,13 +27,14 @@ export function createBuildYourOwnList() {
 
 export function addSelectionToUserList() {
   const $this = $(this);
+  const $fixed = $('.fixed');
   const latLongName = [Number($this.attr('latitude')), Number($this.attr('longitude')), $this.attr('name')];
   updateCoordinatesArray(latLongName);
 
   $this.parent('div').fadeOut(750, function() {
     $(this).appendTo('.userList');
   });
-  $('.fixed').fadeIn(500, () => $('.fixed').fadeOut(2000));
+  $fixed.fadeIn(500, () => $fixed.fadeOut(2000));
 }
 
 export function returnToStartAndEmptyLists() {
