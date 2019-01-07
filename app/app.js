@@ -1,6 +1,5 @@
 import { initBrewGraphic } from './components/brewGraphic';
 import { displayBuildYourOwnMapAndList } from './components/googleMaps';
-import { updateCoordinatesArray } from './utils/mapCoordinates';
 import {
   createPremadeList,
   createBuildYourOwnList,
