@@ -2,6 +2,8 @@ import { getBreweryData } from '../services/getBreweryData';
 import { updateCoordinatesArray, emptyCoordinatesArray } from '../utils/mapCoordinates';
 import { displayPremadeMapAndList } from './googleMaps';
 
+const FADE_TIME = 500;
+
 export function createPremadeList() {
   getBreweryData(breweryData => {
     trimPremadeBreweryListArray(breweryData).forEach(brewery => {
@@ -17,7 +19,7 @@ export function createPremadeList() {
 
 export function createBuildYourOwnList() {
   getBreweryData(breweryData => {
-    $('.wrapper').fadeOut(500, () => $('.selectBrew').fadeIn(500));
+    $('.wrapper').fadeOut(FADE_TIME, () => $('.selectBrew').fadeIn(FADE_TIME));
     breweryData.data.forEach(brewery => {
       const breweryHtml = getBuildYourOwnBreweryListHtml(brewery);
       $('.listItems').append(breweryHtml);
@@ -34,13 +36,13 @@ export function addSelectionToUserList() {
   $this.parent('div').fadeOut(750, function() {
     $(this).appendTo('.userList');
   });
-  $fixed.fadeIn(500, () => $fixed.fadeOut(2000));
+  $fixed.fadeIn(FADE_TIME, () => $fixed.fadeOut(2000));
 }
 
 export function returnToStartAndEmptyLists() {
   const breweryListSelector = this.id === 'start-over' ? '.selectBrew' : '.premade';
-  $(breweryListSelector).fadeOut(500, () => {
-    $('.wrapper').fadeIn(500);
+  $(breweryListSelector).fadeOut(FADE_TIME, () => {
+    $('.wrapper').fadeIn(FADE_TIME);
     $('.list-items, .listItems, .userList').empty();
     emptyCoordinatesArray();
   });

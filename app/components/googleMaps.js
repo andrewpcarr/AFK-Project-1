@@ -1,21 +1,22 @@
 import { API_KEYS } from '../../apiKeys';
 import { getMapCoordinates } from '../utils/mapCoordinates';
 
+const FADE_TIME = 500;
 const MAP_SCRIPT_HTML = `<script async defer src='https://maps.googleapis.com/maps/api/js?key=${API_KEYS.GOOGLE_MAPS_KEY}&callback=initMap' id='script' class='googlemap-script'></script>`;
 
 export function displayPremadeMapAndList() {
-  $('.wrapper').fadeOut(500, () => {
+  $('.wrapper').fadeOut(FADE_TIME, () => {
     initGoogleMapScript();
-    $('.premade, .returned-list').fadeIn(500);
+    $('.premade, .returned-list').fadeIn(FADE_TIME);
   });
 }
 
 export function displayBuildYourOwnMapAndList() {
-  $('.selectBrew').fadeOut(500, () => {
+  $('.selectBrew').fadeOut(FADE_TIME, () => {
     initGoogleMapScript();
     $('.checkbox-inline').text('Visited');
     $('input').prop('checked', false);
-    $('.premade, .returned-list').fadeIn(500);
+    $('.premade, .returned-list').fadeIn(FADE_TIME);
   });
 }
 
