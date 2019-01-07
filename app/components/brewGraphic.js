@@ -1,8 +1,8 @@
 export function initBrewGraphic() {
-  return anime(brewGraphicConfig);
+  return anime(GRAPHIC_CONFIG);
 }
 
-const brewGraphicConfig = {
+const GRAPHIC_CONFIG = {
   targets: 'path',
   strokeDashoffset: function(el) {
     const pathLength = el.getTotalLength();
