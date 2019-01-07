@@ -1,3 +1,4 @@
+$fontStack: 'Playfair Display', serif;
 $white: #FFFFFF;
 $black: #000000;
 $gold: #FFCD16;
@@ -10,7 +11,7 @@ $transparentGrey: rgba(77, 77, 77, 0.95);
 body {
   background: url('../app/assets/images/background3.jpg') repeat $white;
   background-attachment: fixed;
-  font-family: 'Playfair Display', serif;
+  font-family: $fontStack;
 
   .load-screen {
     background: $transparentGrey;
@@ -213,6 +214,10 @@ body {
       padding: 30px;
       border-radius: 75px;
       overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       >#createList {
         margin-right: 30px;
