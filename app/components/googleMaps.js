@@ -1,5 +1,5 @@
-import { API_KEYS } from '../../../apiKeys';
-import { getMapCoordinates } from '../../utils/mapCoordinates';
+import { API_KEYS } from '../../apiKeys';
+import { getMapCoordinates } from '../utils/mapCoordinates';
 
 const MAP_SCRIPT_HTML = `<script async defer src='https://maps.googleapis.com/maps/api/js?key=${API_KEYS.GOOGLE_MAPS_KEY}&callback=initMap' id='script' class='googlemap-script'></script>`;
 

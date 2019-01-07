@@ -1,12 +1,12 @@
-import { initBrewGraphic } from './components/brewGraphic/brewGraphic';
-import { displayBuildYourOwnMapAndList } from './components/googleMaps/googleMaps';
+import { initBrewGraphic } from './components/brewGraphic';
+import { displayBuildYourOwnMapAndList } from './components/googleMaps';
 import { updateCoordinatesArray } from './utils/mapCoordinates';
 import {
   createPremadeList,
   createBuildYourOwnList,
   addSelectionToUserList,
   returnToStartAndEmptyLists,
-} from './components/breweryLists/breweryLists';
+} from './components/breweryLists';
 
 // Creates the bizarre graphic at the top welcome screen
 initBrewGraphic();

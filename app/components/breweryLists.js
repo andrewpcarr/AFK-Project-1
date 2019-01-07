@@ -1,6 +1,6 @@
-import { getBreweryData } from '../../services/getBreweryData';
-import { updateCoordinatesArray, emptyCoordinatesArray } from '../../utils/mapCoordinates';
-import { displayPremadeMapAndList } from '../googleMaps/googleMaps';
+import { getBreweryData } from '../services/getBreweryData';
+import { updateCoordinatesArray, emptyCoordinatesArray } from '../utils/mapCoordinates';
+import { displayPremadeMapAndList } from './googleMaps';
 
 export function createPremadeList() {
   getBreweryData(breweryData => {
